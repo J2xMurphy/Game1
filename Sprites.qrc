@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/Sprites">
+        <file>circle.png</file>
+        <file>Idle1.png</file>
+        <file>Idle2.png</file>
+        <file>Forward1_Test.png</file>
+        <file>Forward2_Test.png</file>
+        <file>Forward3_Test.png</file>
+        <file>Backwards1_Test.png</file>
+        <file>Backwards2_Test.png</file>
+        <file>Backwards3_Test.png</file>
+        <file>Ruler.png</file>
+        <file>floor.png</file>
+        <file>BG.png</file>
+        <file>Dummy.png</file>
+        <file>Base_hp.png</file>
+        <file>front_hp.png</file>
+        <file>front_mp.png</file>
+    </qresource>
+</RCC>
