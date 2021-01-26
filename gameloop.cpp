@@ -79,7 +79,6 @@ bool gameloop::do_loop(){
     enemy->logic();
 
     for (render_object curobj:(objlist)){
-        std::cout << "Hi" << std::endl;
         curobj.logic();
     }
     input->logic();
