@@ -128,7 +128,6 @@ void render_object::setSpotXY(int a, int b){
 
 
 void bar_object::logic() {
-    //render_object::logic();
     QPixmap temp = getSpriteFrame()->getSprite();
     QPixmap newsprite = temp.copy(0,0,0,0);
     setSpriteSingle(newsprite);

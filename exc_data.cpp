@@ -18,11 +18,7 @@ spriteframe * ruler = new spriteframe;
 spriteframe * dummy = new spriteframe;
 spriteframe * flor = new spriteframe;
 
-spriteframe * base_health_bar = new spriteframe;
-spriteframe * front_health_bar = new spriteframe;
-spriteframe * front_special_bar = new spriteframe;
 
-spriteframe * grassland = new spriteframe;
 
 short map_slot[3][5][2] = {
     {  {322,394}, {563,394}, {805,394}, {1038,394}, {1279,394} },
@@ -45,14 +41,27 @@ void S_init(){
     dummy->init(0,DUMMY,dummy);
     flor->init(0,FLOOR,flor);
 
-    base_health_bar->init(0,BASEHEALTHBAR,base_health_bar);
-    front_health_bar->init(0,FRONTHEALTHBAR,front_health_bar);
-    front_special_bar->init(0,FRONTSPECIALBAR,front_special_bar);
 
-    grassland->init(0,GRASSLAND,grassland);
+}
+
+void Player_sprite_init(QList<spriteframe>* sprlist){
+    sprlist->append({
+                spr_create(10,IDLE1_IMG,2),     //1
+                spr_create(10,IDLE2_IMG,1),     //2
+                spr_create(10,FORWARD_IMG1,4),  //3
+                spr_create(10,FORWARD_IMG2,5),  //4
+                spr_create(10,FORWARD_IMG3,1),  //5
+                spr_create(10,BACKWARDS_IMG1,7),//6
+                spr_create(10,BACKWARDS_IMG2,8),//7
+                spr_create(10,BACKWARDS_IMG3,1) //8
+                    });
 }
 
 void scene1(QList<render_object>* objlist){
+    // Scene 1's Object list--------------------
+    spriteframe * grassland = new spriteframe;
+    grassland->init(0,GRASSLAND,grassland);
+
     render_object bg_obj(0,0,grassland,-10);
     objlist->push_back(bg_obj);
 
@@ -65,6 +74,15 @@ void scene1(QList<render_object>* objlist){
 }
 
 void health_bars(QList<render_object>* objlist){
+    spriteframe * base_health_bar = new spriteframe;
+    spriteframe * front_health_bar = new spriteframe;
+    spriteframe * front_special_bar = new spriteframe;
+
+    base_health_bar->init(0,BASEHEALTHBAR,base_health_bar);
+    front_health_bar->init(0,FRONTHEALTHBAR,front_health_bar);
+    front_special_bar->init(0,FRONTSPECIALBAR,front_special_bar);
+
+
     bar_object basehealthbar1(10,10,base_health_bar);
     objlist->push_back(basehealthbar1);
 
@@ -95,4 +113,9 @@ void health_bars(QList<render_object>* objlist){
                                 front_special_bar);
     objlist->push_back(frontspecialbar2);
 
+}
+
+spriteframe spr_create(int dur,QString img,int next){
+    spriteframe tmp(dur,img,next);
+    return tmp;
 }

@@ -6,6 +6,7 @@
 
 class spriteframe{
     int duration = 1;
+    int next_index = 0;
     QString sprite = ":/Sprites/circle.png";
     spriteframe * next = NULL;
 public:
@@ -15,15 +16,34 @@ public:
         init(a,b,c);
     }
 
+    spriteframe(int a ,QString b ,int c){
+        init(a,b,c);
+    }
+
     void init(int dur,QString path,spriteframe * nxt){
         duration = dur;
         sprite = path;
         next = nxt;
-
     };
+
+    void init(int dur,QString path,int nxt){
+        duration = dur;
+        sprite = path;
+        next_index = nxt;
+    };
+
+    void setNextIndex(int a){
+        next_index = a;
+    }
+
     void setNext(
             spriteframe* nxt){next = nxt;
     };
+
+    int get_Next_Index(){
+        return next_index;
+    }
+
     spriteframe* getNext(){
         return next;
     };
@@ -36,6 +56,8 @@ public:
         return sprite;
     };
 };
+
+spriteframe spr_create(int,QString,int);
 
 #define IDLE1_IMG ":/Sprites/Idle1.png"
 #define IDLE2_IMG ":/Sprites/Idle2.png"
