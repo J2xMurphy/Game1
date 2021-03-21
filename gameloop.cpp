@@ -13,9 +13,9 @@ QList<render_object> objlist;
 
 
 void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
-    S_init();
-    scene1(&objlist);
-    health_bars(&objlist);
+//    S_init();
+//    scene1(&objlist);
+//    health_bars(&objlist);
 
     framerate = 60;// Set the game's desired framerate
     clist[0] = {16777235};// Set internal up to up arrow
@@ -34,27 +34,37 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     input->btndef(clist[0],clist[1],clist[2],clist[3]);// apply inputs
 
     // add all of the pulled render objects for the level to the scene
-    for(render_object curobj:objlist){
-        scene->addItem(curobj.getSprite());
-    }
+//    for(render_object curobj:objlist){
+//        scene->addItem(curobj.getSprite());
+//    }
 
     // Setting the character parameters, sprite dimensions and location
+    std::cout << "1" << std::endl;
     player = new controllable_object;
-    player->setSprite(player_idle1);
+    std::cout << "2" << std::endl;
+    QList<spriteframe> * playerspl = new QList<spriteframe>;
+    std::cout << "3" << std::endl;
+    Player_sprite_init(playerspl);
+    std::cout << "4" << std::endl;
+    player->init_Sprite(playerspl,0);
+    std::cout << "5" << std::endl;
     player->setCenterOffset(36);
+    std::cout << "6" << std::endl;
     player->setScale(2.0);
+    std::cout << "7" << std::endl;
     player->setSpotXY(1,0);
 
     // Creating a test dummy with paraeters
-    enemy = new enemy_object;
-    enemy->setSprite(dummy);
-    enemy->setCenterOffset(36);
-    enemy->setScale(2.0);
-    enemy->setSpotXY(4,1);
+//    enemy = new enemy_object;
+//    enemy->setSprite(dummy);
+//    enemy->setCenterOffset(36);
+//    enemy->setScale(2.0);
+//    enemy->setSpotXY(4,1);
 
+std::cout << "Getting Sprite " << std::endl;
     scene->addItem(player->getSprite());// Add player image to scene
-    scene->addItem(enemy->getSprite());
-
+//    scene->addItem(enemy->getSprite());
+std::cout << "... got it!" << std::endl;
 
     // This will call logic based on desired framerate
     frametime = new QTimer;//Initialize frame timer
@@ -76,7 +86,7 @@ bool gameloop::do_loop(){
             input->clist[2].tapped,
             input->clist[3].tapped);
     player->logic();
-    enemy->logic();
+//    enemy->logic();
 
     for (render_object curobj:(objlist)){
         curobj.logic();
@@ -87,19 +97,19 @@ bool gameloop::do_loop(){
 
 void controllable_object::moveself(bool u, bool d , bool l, bool r){
     if (u && getSpotY()>0){
-        setSprite(player_forward1);
+        setSprite(getSpriteat(3));
         setSpotY(getSpotY()-1);
     }
     if (d && getSpotY()<2){
-        setSprite(player_forward1);
+        setSprite(getSpriteat(3));
         setSpotY(getSpotY()+1);
     }
     if (l && getSpotX()>0){
-        setSprite(player_backwards1);
+        setSprite(getSpriteat(6));
         setSpotX(getSpotX()-1);
     }
     if (r && getSpotX()<2){
-        setSprite(player_forward1);
+        setSprite(getSpriteat(3));
         setSpotX(getSpotX()+1);
     }
 //    std::cout << getPosX() << "," << getPosY() <<std::endl;
@@ -128,7 +138,7 @@ void render_object::setSpotXY(int a, int b){
 
 
 void bar_object::logic() {
-    QPixmap temp = getSpriteFrame()->getSprite();
+    QPixmap temp = getSpriteFrame().getSprite();
     QPixmap newsprite = temp.copy(0,0,0,0);
     setSpriteSingle(newsprite);
     std::cout << "Bar logic" << std::endl;

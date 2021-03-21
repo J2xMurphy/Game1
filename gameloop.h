@@ -31,34 +31,62 @@ public slots:
 
 //A renderobject that holds basic object data and sprite image
 class render_object{
+    //Position Data
     int x=0,y=0;
     int spotX=0,spotY=1;
+
+    //Image Data
+    QList<spriteframe> *  sprite_list;
+    int sprite_index = 0;
     qreal scale = 1;
     int dur_index= 0;
     int center_offset = 0;
     QGraphicsPixmapItem * sprite = new QGraphicsPixmapItem;
-    spriteframe * cursprite;
+    spriteframe cursprite;
+
 public:
     // Constructors --------------
     // ---------------------------
     render_object(){}
-    render_object(int x, int y, spriteframe* newsprite){
+    render_object(int x, int y, QList<spriteframe> * spl, int si){
         setXY(x,y);
-        setSprite(newsprite);
+        sprite_list = spl;
+        sprite_index = si;
+        setSprite(sprite_list->at(sprite_index));
     }
-    render_object(int x, int y, spriteframe* newsprite, int z){
+    render_object(int x, int y, QList<spriteframe> * spl, int si, int z){
         setXY(x,y);
-        setSprite(newsprite);
+        sprite_list = spl;
+        sprite_index = si;
+        setSprite(sprite_list->at(sprite_index));
         setZVal(z);
     }
-    render_object(int x, int y, qreal z,spriteframe* newsprite){
+    render_object(int x, int y, qreal z,QList<spriteframe> * spl, int si){
         setXY(x,y);
+        sprite_list = spl;
+        sprite_index = si;
+        setSprite(sprite_list->at(sprite_index));
         setScale(z);
-        setSprite(newsprite);
     }
 
     // Functions -----------------
     // ---------------------------
+    void init_Sprite(QList<spriteframe> * spl, int si){
+        sprite_list = spl;
+        sprite_index = si;
+        if (sprite_list->size()==0){
+            std::cout << "Sprite List empty!!" << std::endl;
+            return;
+        }
+        std::cout << sprite_list[0][sprite_index].getSprite().toStdString() << ": in list."<< std::endl;
+
+        std::cout << "x1" << std::endl;
+        cursprite = sprite_list[0].at(sprite_index);
+        std::cout << "x2" << std::endl;
+        setSprite(cursprite);
+        std::cout << "x3" << std::endl;
+    }
+
     void setX(int a){                   // Set X position
         x = a;
         sprite->setOffset(x,y);
@@ -99,10 +127,16 @@ public:
         sprite->setPixmap(single);
     };
 
-    void setSprite(spriteframe* newsprite){// Sets the sprite of player as newsprite
+    void setSprite(spriteframe newsprite){// Sets the sprite of player as newsprite
+        std::cout << newsprite.getSprite().toStdString() << std::endl;
         dur_index = 0;
+        std::cout << sprite << std::endl;
+        std::cout << "z1" << std::endl;
         cursprite = newsprite;
-        sprite->setPixmap(QPixmap(cursprite->getSprite()));
+        std::cout << "z2" << std::endl;
+        sprite->setPixmap(QPixmap(cursprite.getSprite()));
+        std::cout << "z3" << std::endl;
+        std::cout << sprite << std::endl;
     };
 
     int getPosX(){// Return X position
@@ -137,17 +171,22 @@ public:
         return sprite;
     };
 
-    spriteframe* getSpriteFrame(){
+    spriteframe getSpriteat(int si){
+      return sprite_list->at(si);
+    };
+
+    spriteframe getSpriteFrame(){
         return cursprite;
     };
 
     virtual void logic(){
-        if (cursprite->getDuration()!=0){
+        if (cursprite.getDuration()!=0){
             dur_index++;
-            if (dur_index >=cursprite->getDuration()){
+            if (dur_index >=cursprite.getDuration()){
               dur_index = 0;
-              cursprite = cursprite->getNext();
-              sprite->setPixmap(QPixmap(cursprite->getSprite()));
+              sprite_index=cursprite.get_Next_Index();
+              cursprite = sprite_list[0].at(sprite_index);
+              sprite->setPixmap(QPixmap(cursprite.getSprite()));
             }
         }
     };
@@ -176,14 +215,14 @@ class bar_object:public render_object{
 public:
     //using render_object::render_object;
     bar_object(){}
-    bar_object(int x, int y, spriteframe* newsprite){
+    bar_object(int x, int y, QList<spriteframe>* spl, int si){
         setXY(x,y);
-        setSprite(newsprite);
+        setSprite(spl->at(si));
     }
-    bar_object(int x, int y, qreal z, spriteframe* newsprite){
+    bar_object(int x, int y, qreal z, QList<spriteframe>* spl, int si){
         setXY(x,y);
         setScale(z);
-        setSprite(newsprite);
+        setSprite(spl->at(si));
     }
     void logic() override;
 };

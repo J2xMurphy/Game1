@@ -2,6 +2,7 @@
 #define SPRITELIST_H
 
 #include <QPixmap>
+#include <iostream>
 #include <QGraphicsPixmapItem>
 
 class spriteframe{
@@ -36,8 +37,8 @@ public:
         next_index = a;
     }
 
-    void setNext(
-            spriteframe* nxt){next = nxt;
+    void setNext(spriteframe* nxt){
+        next = nxt;
     };
 
     int get_Next_Index(){
@@ -58,6 +59,7 @@ public:
 };
 
 spriteframe spr_create(int,QString,int);
+void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 
 #define IDLE1_IMG ":/Sprites/Idle1.png"
 #define IDLE2_IMG ":/Sprites/Idle2.png"

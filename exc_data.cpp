@@ -26,96 +26,116 @@ short map_slot[3][5][2] = {
     {  {225,746}, {515,746}, {807,746}, {1084,746}, {1375,746} }};
 
 void S_init(){
-    player_idle1->init(10,IDLE1_IMG,player_idle2);
-    player_idle2->init(10,IDLE2_IMG,player_idle1);
+//    player_idle1->init(10,IDLE1_IMG,player_idle2);
+//    player_idle2->init(10,IDLE2_IMG,player_idle1);
 
-    player_forward1->init(5,FORWARD_IMG1,player_forward2);
-    player_forward2->init(5,FORWARD_IMG2,player_forward3);
-    player_forward3->init(5,FORWARD_IMG3,player_idle1);
+//    player_forward1->init(5,FORWARD_IMG1,player_forward2);
+//    player_forward2->init(5,FORWARD_IMG2,player_forward3);
+//    player_forward3->init(5,FORWARD_IMG3,player_idle1);
 
-    player_backwards1->init(5,BACKWARDS_IMG1,player_backwards2);
-    player_backwards2->init(5,BACKWARDS_IMG2,player_backwards3);
-    player_backwards3->init(5,BACKWARDS_IMG3,player_idle1);
+//    player_backwards1->init(5,BACKWARDS_IMG1,player_backwards2);
+//    player_backwards2->init(5,BACKWARDS_IMG2,player_backwards3);
+//    player_backwards3->init(5,BACKWARDS_IMG3,player_idle1);
 
-    ruler->init(0,RULER,ruler);
-    dummy->init(0,DUMMY,dummy);
-    flor->init(0,FLOOR,flor);
+//    ruler->init(0,RULER,ruler);
+//    dummy->init(0,DUMMY,dummy);
+//    flor->init(0,FLOOR,flor);
 
 
 }
 
-void Player_sprite_init(QList<spriteframe>* sprlist){
-    sprlist->append({
-                spr_create(10,IDLE1_IMG,2),     //1
-                spr_create(10,IDLE2_IMG,1),     //2
-                spr_create(10,FORWARD_IMG1,4),  //3
-                spr_create(10,FORWARD_IMG2,5),  //4
-                spr_create(10,FORWARD_IMG3,1),  //5
-                spr_create(10,BACKWARDS_IMG1,7),//6
-                spr_create(10,BACKWARDS_IMG2,8),//7
-                spr_create(10,BACKWARDS_IMG3,1) //8
-                    });
+void Player_sprite_init(QList<spriteframe> * sprlist){
+// This creates a 2d list
+//    sprlist->append({spr_create(10,IDLE1_IMG,1),     //1
+//                spr_create(10,IDLE2_IMG,0),     //2
+//                spr_create(10,FORWARD_IMG1,3),  //3
+//                spr_create(10,FORWARD_IMG2,4),  //4
+//                spr_create(10,FORWARD_IMG3,0),  //5
+//                spr_create(10,BACKWARDS_IMG1,6),//6
+//                spr_create(10,BACKWARDS_IMG2,7),//7
+//                spr_create(10,BACKWARDS_IMG3,0) //8
+//                    });
+    sprite_appender(
+      sprlist,
+     {spr_create(10,IDLE1_IMG,1),     //1
+      spr_create(10,IDLE2_IMG,0),     //2
+      spr_create(10,FORWARD_IMG1,3),  //3
+      spr_create(10,FORWARD_IMG2,4),  //4
+      spr_create(10,FORWARD_IMG3,0),  //5
+      spr_create(10,BACKWARDS_IMG1,6),//6
+      spr_create(10,BACKWARDS_IMG2,7),//7
+      spr_create(10,BACKWARDS_IMG3,0)
+      }); //8});
 }
 
 void scene1(QList<render_object>* objlist){
     // Scene 1's Object list--------------------
-    spriteframe * grassland = new spriteframe;
-    grassland->init(0,GRASSLAND,grassland);
+//    spriteframe * grassland = new spriteframe;
+//    grassland->init(0,GRASSLAND,grassland);
 
-    render_object bg_obj(0,0,grassland,-10);
-    objlist->push_back(bg_obj);
+//    QList<spriteframe> * scenelist = new QList<spriteframe>;
+//    scenelist->append(spr_create(0,GRASSLAND,0)
+//                     });
+//    render_object bg_obj(0,0,scenelist,1,-10);
+//    objlist->push_back(bg_obj);
 
-    render_object floor_obj(0,315,flor);
-    objlist->push_back(floor_obj);
+//    render_object floor_obj(0,315,flor);
+//    objlist->push_back(floor_obj);
 
-    render_object ruler_obj(0,0,2,ruler);
-    objlist->push_back(ruler_obj);
+//    render_object ruler_obj(0,0,2,ruler);
+//    objlist->push_back(ruler_obj);
 
 }
 
 void health_bars(QList<render_object>* objlist){
-    spriteframe * base_health_bar = new spriteframe;
-    spriteframe * front_health_bar = new spriteframe;
-    spriteframe * front_special_bar = new spriteframe;
+//    spriteframe * base_health_bar = new spriteframe;
+//    spriteframe * front_health_bar = new spriteframe;
+//    spriteframe * front_special_bar = new spriteframe;
 
-    base_health_bar->init(0,BASEHEALTHBAR,base_health_bar);
-    front_health_bar->init(0,FRONTHEALTHBAR,front_health_bar);
-    front_special_bar->init(0,FRONTSPECIALBAR,front_special_bar);
+//    base_health_bar->init(0,BASEHEALTHBAR,base_health_bar);
+//    front_health_bar->init(0,FRONTHEALTHBAR,front_health_bar);
+//    front_special_bar->init(0,FRONTSPECIALBAR,front_special_bar);
 
 
-    bar_object basehealthbar1(10,10,base_health_bar);
-    objlist->push_back(basehealthbar1);
+//    bar_object basehealthbar1(10,10,base_health_bar);
+//    objlist->push_back(basehealthbar1);
 
-    bar_object fronthealthbar1(30,20,front_health_bar);
-    objlist->push_back(fronthealthbar1);
+//    bar_object fronthealthbar1(30,20,front_health_bar);
+//    objlist->push_back(fronthealthbar1);
 
-    bar_object basespecialbar1(12,170,0.60,base_health_bar);
-    objlist->push_back(basespecialbar1);
+//    bar_object basespecialbar1(12,170,0.60,base_health_bar);
+//    objlist->push_back(basespecialbar1);
 
-    bar_object frontspecialbar1(basespecialbar1.getPosX()+20,
-                                basespecialbar1.getPosY()+7,
-                                basespecialbar1.getScale(),
-                                front_special_bar);
-    objlist->push_back(frontspecialbar1);
+//    bar_object frontspecialbar1(basespecialbar1.getPosX()+20,
+//                                basespecialbar1.getPosY()+7,
+//                                basespecialbar1.getScale(),
+//                                front_special_bar);
+//    objlist->push_back(frontspecialbar1);
 
-    bar_object basehealthbar2(950,10,base_health_bar);
-    objlist->push_back(basehealthbar2);
+//    bar_object basehealthbar2(950,10,base_health_bar);
+//    objlist->push_back(basehealthbar2);
 
-    bar_object fronthealthbar2(970,17,front_health_bar);
-    objlist->push_back(fronthealthbar2);
+//    bar_object fronthealthbar2(970,17,front_health_bar);
+//    objlist->push_back(fronthealthbar2);
 
-    bar_object basespecialbar2(2015,170,0.6,base_health_bar);
-    objlist->push_back(basespecialbar2);
+//    bar_object basespecialbar2(2015,170,0.6,base_health_bar);
+//    objlist->push_back(basespecialbar2);
 
-    bar_object frontspecialbar2(basespecialbar2.getPosX()+20,
-                                basespecialbar2.getPosY()+7,
-                                basespecialbar2.getScale(),
-                                front_special_bar);
-    objlist->push_back(frontspecialbar2);
+//    bar_object frontspecialbar2(basespecialbar2.getPosX()+20,
+//                                basespecialbar2.getPosY()+7,
+//                                basespecialbar2.getScale(),
+//                                front_special_bar);
+//    objlist->push_back(frontspecialbar2);
 
 }
+void sprite_appender(QList<spriteframe> * enlist,QList<spriteframe> sfl){
+    for (spriteframe sf:(sfl)){
+        enlist->append(sf);
+    }
+};
 
 spriteframe spr_create(int dur,QString img,int next){
     spriteframe tmp(dur,img,next);
+    std::cout << img.toStdString() << std::endl;
     return tmp;
 }
