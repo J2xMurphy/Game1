@@ -68,6 +68,14 @@ public:
         setSprite(sprite_list->at(sprite_index));
         setScale(z);
     }
+    render_object(int x, int y, qreal z,spriteframe sf){
+        setXY(x,y);
+        sprite_list = NULL;
+        sprite_index = 0;
+        cursprite = sf;
+        setSprite(sf);
+        setScale(z);
+    }
 
     // Functions -----------------
     // ---------------------------
@@ -125,6 +133,12 @@ public:
 
     void setSpriteSingle(QPixmap single){ // Do not use on animation
         sprite->setPixmap(single);
+    };
+
+    void initSprite_List(QList<spriteframe>* sfl,int si){
+        sprite_list = sfl;
+        sprite_index = si;
+        setSprite(sprite_list->at(sprite_index));
     };
 
     void setSprite(spriteframe newsprite){// Sets the sprite of player as newsprite
@@ -198,6 +212,12 @@ public:
 // An extension of render object that responds to controls
 class controllable_object:public render_object{
 public:
+    controllable_object(QList<spriteframe> * spr_list, int spr_index,
+                        int x, int y, qreal scale,int c_of)
+    {initSprite_List(spr_list,spr_index);
+     setCenterOffset(c_of);
+     setScale(scale);
+     setSpotXY(x,y);};
     short health = 1000, curhealth = 700;
     void moveself(bool,bool,bool,bool);
 };
@@ -205,6 +225,14 @@ public:
 // An extension of render object that is algorithmically driven
 class enemy_object:public render_object{
 public:
+    enemy_object(QList<spriteframe> * spr_list,int spr_index,
+                 int x, int y,qreal scale,int cof){
+//        setSprite(spr);
+        initSprite_List(spr_list,spr_index);
+        setCenterOffset(cof);
+        setScale(scale);
+        setSpotXY(x,y);
+    };
     short health = 1000, curhealth = 700;
     int x_spot = 3; // the x tile of the enemy
     int y_spot = 1; // the y tile of the enemy
@@ -215,15 +243,16 @@ class bar_object:public render_object{
 public:
     //using render_object::render_object;
     bar_object(){}
-    bar_object(int x, int y, QList<spriteframe>* spl, int si){
+    bar_object(int x, int y, spriteframe spl){
         setXY(x,y);
-        setSprite(spl->at(si));
+        setSprite(spl);
     }
-    bar_object(int x, int y, qreal z, QList<spriteframe>* spl, int si){
+    bar_object(int x, int y, qreal z, spriteframe spl){
         setXY(x,y);
         setScale(z);
-        setSprite(spl->at(si));
+        setSprite(spl);
     }
     void logic() override;
 };
+
 #endif // GAMELOOP_H

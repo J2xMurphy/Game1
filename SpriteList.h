@@ -6,7 +6,7 @@
 #include <QGraphicsPixmapItem>
 
 class spriteframe{
-    int duration = 1;
+    int duration = 0;
     int next_index = 0;
     QString sprite = ":/Sprites/circle.png";
     spriteframe * next = NULL;
@@ -19,6 +19,9 @@ public:
 
     spriteframe(int a ,QString b ,int c){
         init(a,b,c);
+    }
+    spriteframe(QString path){
+        sprite = path;
     }
 
     void init(int dur,QString path,spriteframe * nxt){
@@ -58,6 +61,7 @@ public:
     };
 };
 
+spriteframe spr_create(QString);
 spriteframe spr_create(int,QString,int);
 void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 
