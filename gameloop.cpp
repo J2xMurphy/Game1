@@ -31,7 +31,7 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     input->setFlag(QGraphicsItem::ItemIsFocusable);// Allow Input
     input->setFocus();// Set to handle input
     scene->addItem(input);// Add inputs to scene
-    input->btndef(clist[0],clist[1],clist[2],clist[3]);// apply inputs
+    input->buttondef(clist[0],clist[1],clist[2],clist[3]);// apply inputs
 
     // add all of the pulled render objects for the level to the scene
     for(render_object curobj:objlist){

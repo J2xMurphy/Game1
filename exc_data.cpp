@@ -20,12 +20,12 @@ void Player_sprite_init(QList<spriteframe> * sprlist){
       sprlist,
      {spr_create(10,IDLE1_IMG,1),     //0
       spr_create(10,IDLE2_IMG,0),     //1
-      spr_create(10,FORWARD_IMG1,3),  //2
-      spr_create(10,FORWARD_IMG2,4),  //3
-      spr_create(10,FORWARD_IMG3,0),  //4
-      spr_create(10,BACKWARDS_IMG1,6),//5
-      spr_create(10,BACKWARDS_IMG2,7),//6
-      spr_create(10,BACKWARDS_IMG3,0) //7
+      spr_create(5,FORWARD_IMG1,3),  //2
+      spr_create(5,FORWARD_IMG2,4),  //3
+      spr_create(5,FORWARD_IMG3,0),  //4
+      spr_create(5,BACKWARDS_IMG1,6),//5
+      spr_create(5,BACKWARDS_IMG2,7),//6
+      spr_create(5,BACKWARDS_IMG3,0) //7
       }); //8});
 }
 

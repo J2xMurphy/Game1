@@ -17,6 +17,7 @@
 #include <QApplication>
 
 //A per frame logic handler
+// The backbone of game logic and realtime functionality
 class gameloop: public QObject{
     Q_OBJECT
     keyWatcher * input;
@@ -193,7 +194,7 @@ public:
         return cursprite;
     };
 
-    virtual void logic(){
+    void update_sprite(){
         if (cursprite.getDuration()!=0){
             dur_index++;
             if (dur_index >=cursprite.getDuration()){
@@ -203,6 +204,11 @@ public:
               sprite->setPixmap(QPixmap(cursprite.getSprite()));
             }
         }
+
+    };
+
+    virtual void logic(){
+        update_sprite();
     };
 
 };
@@ -212,14 +218,20 @@ public:
 // An extension of render object that responds to controls
 class controllable_object:public render_object{
 public:
+    short health = 1000, curhealth = 700;
+// Constructor
     controllable_object(QList<spriteframe> * spr_list, int spr_index,
                         int x, int y, qreal scale,int c_of)
     {initSprite_List(spr_list,spr_index);
      setCenterOffset(c_of);
      setScale(scale);
      setSpotXY(x,y);};
-    short health = 1000, curhealth = 700;
+//Functions
     void moveself(bool,bool,bool,bool);
+    void logic(){
+        update_sprite();
+        //TODO unique player logic
+    };
 };
 
 // An extension of render object that is algorithmically driven
@@ -242,6 +254,7 @@ public:
 class bar_object:public render_object{
 public:
     //using render_object::render_object;
+
     bar_object(){}
     bar_object(int x, int y, spriteframe spl){
         setXY(x,y);
@@ -252,7 +265,7 @@ public:
         setScale(z);
         setSprite(spl);
     }
-    void logic() override;
+    void logic();
 };
 
 #endif // GAMELOOP_H

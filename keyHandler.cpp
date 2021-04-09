@@ -1,25 +1,31 @@
 #include "keyHandler.h"
+//## Control_Button #####
+control_button::control_button(int button_id){
+    this->button_id = button_id;
+}
 
+
+//## Key_Watcher #######
 void keyWatcher::logic(){
-    for (cbtn &cur_btn: this->clist){
-        cur_btn.tapped=0;
+    for (control_button &cur_button: this->clist){
+        cur_button.tapped=0;
     }
 }
 
-void keyWatcher::btndef(int a,int b, int c, int d){
-    clist[0].id=a;
-    clist[1].id=b;
-    clist[2].id=c;
-    clist[3].id=d;
+void keyWatcher::buttondef(int a,int b, int c, int d){
+    clist[0].button_id=a;
+    clist[1].button_id=b;
+    clist[2].button_id=c;
+    clist[3].button_id=d;
 }
 
 void keyWatcher::keyPressEvent(QKeyEvent * keypress)
 {
     o = keypress->key();
     std::cout << "Key Pressed: " << keypress->key() << std::endl;
-    for (cbtn& cb: clist){
-//        std::cout << cb.id << " ";
-        if (cb.id==keypress->key()){
+    for (control_button& cb: clist){
+//        std::cout << cb.button_id << " ";
+        if (cb.button_id==keypress->key()){
  //           std::cout << "Recognized Press";
             cb.held=true;
             cb.tapped=true;
@@ -33,8 +39,8 @@ void keyWatcher::keyPressEvent(QKeyEvent * keypress)
 void keyWatcher::keyReleaseEvent(QKeyEvent * keypress)
 {
     o = 0;
-    for (cbtn& cb: clist){
-        if (cb.id==keypress->key())
+    for (control_button& cb: clist){
+        if (cb.button_id==keypress->key())
             cb.held=false;
     }
     //std::cout << "Key Released: " << keypress->key() << std::endl;

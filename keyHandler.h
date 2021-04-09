@@ -9,23 +9,23 @@
 
 extern int myexternvar;
 
-class cbtn{
+// A button data store to dynamically tell what button and if
+//   the button has just been pressed, or is being held.
+//   button_id refers to the getkey value
+class control_button{
 public:
-    int id;
+    int button_id;
     bool tapped,held;
-    cbtn(int a = 0){
-        id = a;
-        held = false;
-        tapped = false;
-    }
+    control_button(int button_id=0);
 };
 
+// key Watcher handles all of the buttons and timings for input
 class keyWatcher:public QGraphicsTextItem{
     Q_OBJECT
 public:
-    cbtn clist[4];
+    control_button clist[4];
     int o = 0;
-    void btndef(int,int,int,int);
+    void buttondef(int,int,int,int);
     void keyPressEvent(QKeyEvent * keypress);
     void keyReleaseEvent(QKeyEvent *event);
     void logic();

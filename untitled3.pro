@@ -26,7 +26,6 @@ SOURCES += \
 
 HEADERS += \
     CTRLVARS.h \
-    GVARS.h \
     SpriteList.h \
     gameloop.h \
     keyHandler.h \
