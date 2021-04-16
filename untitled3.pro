@@ -16,12 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CTRLVARS.cpp \
     SpriteList.cpp \
     exc_data.cpp \
     gameloop.cpp \
     keyHandler.cpp \
     main.cpp \
     mainwindow.cpp \
+    objects.cpp \
     player.cpp
 
 HEADERS += \
@@ -31,6 +33,7 @@ HEADERS += \
     keyHandler.h \
     main.h \
     mainwindow.h \
+    objects.h \
     player.h
 
 FORMS += \

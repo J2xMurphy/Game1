@@ -1,18 +1,13 @@
 #include "SpriteList.h"
 #include "gameloop.h"
+#include "CTRLVARS.h"
+
 #include <list>
 #include "QList"
 
 spriteframe * ruler = new spriteframe;
 spriteframe * dummy = new spriteframe;
 spriteframe * flor = new spriteframe;
-
-
-
-short map_slot[3][5][2] = {
-    {  {322,394}, {563,394}, {805,394}, {1038,394}, {1279,394} },
-    {  {278,553}, {541,553}, {806,553}, {1059,553}, {1322,553} },
-    {  {225,746}, {515,746}, {807,746}, {1084,746}, {1375,746} }};
 
 
 void Player_sprite_init(QList<spriteframe> * sprlist){
