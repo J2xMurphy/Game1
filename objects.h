@@ -6,6 +6,7 @@
 #include <QGraphicsPixmapItem>
 #include <SpriteList.h>
 
+
 class render_object{
     //Position Data
     int x=0,y=0;
@@ -24,20 +25,24 @@ public:
     // Constructors --------------
     // ---------------------------
     render_object(){}
-    render_object(int x, int y, QList<spriteframe> * spl, int si);
-    render_object(int x, int y, QList<spriteframe> * spl, int si, int z);
-    render_object(int x, int y, qreal z,QList<spriteframe> * spl, int si);
-    render_object(int x, int y, qreal z,spriteframe sf);
+    render_object(int X_Position, int Y_Position,
+                  QList<spriteframe> * Sprite_List, int Sprite_Index);
+    render_object(int X_Position, int Y_Position,
+                  QList<spriteframe> * Sprite_List, int Sprite_Index, int Depth);
+    render_object(int X_Position, int Y_Position,
+                  qreal Scale,QList<spriteframe> * Sprite_List, int Sprite_Index);
+    render_object(int X_Position, int Y_Position,
+                  qreal Scale,spriteframe Spriteframe);
 
     // Functions -----------------
     // ---------------------------
     void init_Sprite(QList<spriteframe> * spl, int si);
 
-    void setX(int a);// Set X position
-    void setY(int b);// Set Y position
-    void setXY(int a,int b); // Set X and Y position
-    void setZVal(int z);// Sets Depth
-    void setScale(qreal newscale);// Sets Scale
+    void setX(int X_Position);// Set X position
+    void setY(int Y_Position);// Set Y position
+    void setXY(int X_Position,int Y_Position); // Set X and Y position
+    void setZVal(int Depth);// Sets Depth
+    void setScale(qreal Scale);// Sets Scale
 
     void setSpotX(int a);// Sets the spot x on the battle grid
     void setSpotY(int b);// Sets the spot Y on the battle grid
@@ -66,10 +71,7 @@ public:
 
     void update_sprite();
 
-    virtual void logic(){
-        update_sprite();
-    };
-
+    virtual void logic();
 };
 
 // An extension of render object that responds to controls
@@ -77,8 +79,9 @@ class controllable_object:public render_object{
 public:
     short health = 1000, curhealth = 700;
 
-    controllable_object(QList<spriteframe> * spr_list,
-                        int spr_index,int x, int y, qreal scale,int c_of);
+    controllable_object(QList<spriteframe> * sprite_list,
+                        int sprite_index,int x_location, int y_locatioin,
+                        qreal scale,int center_offset);
 
     void moveself(bool,bool,bool,bool);
     void logic();//TODO unique player logic
@@ -91,9 +94,9 @@ public:
     short curhealth = 700;
     int x_spot = 3; // the x tile of the enemy
     int y_spot = 1; // the y tile of the enemy
-
     enemy_object(QList<spriteframe> * spr_list,int spr_index,
                  int x, int y,qreal scale,int cof);
+    void logic();
 };
 
 // An extension of render object that deals with bar indicators

@@ -16,6 +16,7 @@
 #include <list>
 #include <QApplication>
 
+//#############################################################################
 //A per frame logic handler
 // The backbone of game logic and realtime functionality
 class gameloop: public QObject{
@@ -24,7 +25,7 @@ class gameloop: public QObject{
     QGraphicsScene * scene;
     QApplication * app;
 public:
-    void initialize(QGraphicsScene * scene, QApplication * a);//Call on start
+    void initialize(QGraphicsScene * Graphics_Scene, QApplication * App);//Call on start
     bool do_loop();//Call to loop game logic
 public slots:
     void restart(){do_loop();};

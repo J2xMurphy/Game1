@@ -22,16 +22,12 @@ void keyWatcher::buttondef(int a,int b, int c, int d){
 void keyWatcher::keyPressEvent(QKeyEvent * keypress)
 {
     o = keypress->key();
-    std::cout << "Key Pressed: " << keypress->key() << std::endl;
     for (control_button& cb: clist){
-//        std::cout << cb.button_id << " ";
         if (cb.button_id==keypress->key()){
- //           std::cout << "Recognized Press";
             cb.held=true;
             cb.tapped=true;
         }
     }
-//    std:: cout << std::endl;
     emit keyPressed(o);
     return;
 }
@@ -43,21 +39,19 @@ void keyWatcher::keyReleaseEvent(QKeyEvent * keypress)
         if (cb.button_id==keypress->key())
             cb.held=false;
     }
-    //std::cout << "Key Released: " << keypress->key() << std::endl;
     return;
 }
 
 void keyWatcher::showKey(){
-    std::cout << "OOP" << o << std::endl;
     return;
 }
 
 void keyWatcher::keyApply(){
-    std::cout << clist[0].held
-              << clist[1].held
-              << clist[2].held
-              << clist[3].held
-              << std::endl;
+//    std::cout << clist[0].held
+//              << clist[1].held
+//              << clist[2].held
+//              << clist[3].held
+//              << std::endl;
     emit UDLDHeld(
             clist[0].held,
             clist[1].held,

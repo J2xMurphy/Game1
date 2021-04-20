@@ -1,5 +1,7 @@
 #include "objects.h"
 
+//RENDER OBJECTS
+//#############################################################################
 render_object::render_object(int x, int y, QList<spriteframe> * spl, int si)
 {
     setXY(x,y);
@@ -192,6 +194,14 @@ void render_object::update_sprite()
 
 }
 
+void render_object::logic()
+{
+    update_sprite();
+}
+
+// CONTROLLABLE OBJECTS
+//#############################################################################
+
 controllable_object::
 controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,qreal scale,int c_of)
 {
@@ -220,10 +230,12 @@ void controllable_object::moveself(bool u, bool d , bool l, bool r){
     }
 }
 
-void controllable_object::logic()
-{
+void controllable_object::logic(){
     update_sprite();
 }
+
+// ENEMY OBJECTS
+//#############################################################################
 
 enemy_object::
 enemy_object(QList<spriteframe> * spr_list,int spr_index,
@@ -234,6 +246,13 @@ enemy_object(QList<spriteframe> * spr_list,int spr_index,
     setScale(scale);
     setSpotXY(x,y);
 }
+
+void enemy_object::logic(){
+    return;
+}
+
+//BAR OBJECTS
+//#############################################################################
 
 bar_object::bar_object(){}
 
@@ -253,7 +272,8 @@ bar_object::bar_object(int x, int y, qreal z, spriteframe spl)
 void bar_object::logic()
 {
     QPixmap temp = getSpriteFrame().getSprite();
+    int a = temp.width()*.99;
+    std::cout << a << std::endl;
     QPixmap newsprite = temp.copy(0,0,0,0);
     setSpriteSingle(newsprite);
-    std::cout << "Bar logic" << std::endl;
 }

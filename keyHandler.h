@@ -7,7 +7,6 @@
 #include <QObject>
 #include"CTRLVARS.h"
 
-extern int myexternvar;
 
 // A button data store to dynamically tell what button and if
 //   the button has just been pressed, or is being held.

@@ -2,15 +2,20 @@
 #define CTRLVARS_H
 
 //TODO
-
+#include <QTimer>
 //Allows Dynamic setting of the controls
+
 
 extern short map_slot[3][5][2];
 
-//int k_up;
-//int k_down;
-//int k_left;
-//int k_right;
+extern int k_up;
+extern int k_down;
+extern int k_left;
+extern int k_right;
+
+extern int framerate;
+extern QTimer * frametime;
+extern int clist[4];
 
 #endif // CTRLVARS_H
 

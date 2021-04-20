@@ -5,23 +5,17 @@
 controllable_object * player;//The player object
 enemy_object * enemy;
 
-int framerate;
-QTimer * frametime;
-int clist [4];
-QList<render_object> objlist;
-
-
+QList<render_object *> objlist;
 
 void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
 //    S_init();
     scene1(&objlist);
     health_bars(&objlist);
 
-    framerate = 60;// Set the game's desired framerate
-    clist[0] = {16777235};// Set internal up to up arrow
-    clist[1] = {16777237};// Set internal down to down arrow
-    clist[2] = {16777234};// Set internal left to left arrow
-    clist[3] = {16777236};// Set internal right to right arrow
+    clist[0] = {k_up};// Set internal up to up arrow
+    clist[1] = {k_down};// Set internal down to down arrow
+    clist[2] = {k_left};// Set internal left to left arrow
+    clist[3] = {k_right};// Set internal right to right arrow
 
     app = a;
     scene = newscene;// Import passed scene to local pointer
@@ -34,8 +28,8 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     input->buttondef(clist[0],clist[1],clist[2],clist[3]);// apply inputs
 
     // add all of the pulled render objects for the level to the scene
-    for(render_object curobj:objlist){
-        scene->addItem(curobj.getSprite());
+    for(int index = 0; index < objlist.size(); index++){
+        scene->addItem(objlist[index]->getSprite());
     }
 
     // Setting the character parameters, sprite dimensions and location
@@ -48,10 +42,8 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     dummy_sprite_init(dummyspl);
     enemy = new enemy_object(dummyspl,0,4,1,2.0,36);
 
-std::cout << "Getting Sprite " << std::endl;
     scene->addItem(player->getSprite());// Add player image to scene
     scene->addItem(enemy->getSprite());
-std::cout << "... got it!" << std::endl;
 
     // This will call logic based on desired framerate
     frametime = new QTimer;//Initialize frame timer
@@ -64,7 +56,6 @@ bool gameloop::do_loop(){
     if (input->hasFocus()==0){
         input->setFocus();
     }
-//    std::cout << input->hasFocus() << std::endl;
     player->moveself(
             input->clist[0].tapped,
             input->clist[1].tapped,
@@ -73,9 +64,13 @@ bool gameloop::do_loop(){
     player->logic();
     enemy->logic();
 
-    for (render_object curobj:(objlist)){
-        curobj.logic();
+//    for (render_object curobj:(objlist)){
+//        curobj.logic();
+//    }
+    for (int index = 0; index < objlist.size(); index++){
+        objlist[index]->logic();
     }
+
     input->logic();
     return true;
 }

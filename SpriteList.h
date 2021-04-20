@@ -57,6 +57,12 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 #define FORWARD_IMG2 ":/Sprites/Forward2_Test.png"
 #define FORWARD_IMG3 ":/Sprites/Forward3_Test.png"
 
+//#define FORWARD_IMG1 ":/Sprites/Test2.png"
+//#define FORWARD_IMG2 ":/Sprites/Test2.png"
+//#define FORWARD_IMG3 ":/Sprites/Test2.png"
+
+
+
 #define BACKWARDS_IMG1 ":/Sprites/Backwards1_Test.png"
 #define BACKWARDS_IMG2 ":/Sprites/Backwards2_Test.png"
 #define BACKWARDS_IMG3 ":/Sprites/Backwards3_Test.png"
