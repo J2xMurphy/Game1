@@ -1,20 +1,21 @@
 <RCC>
-    <qresource prefix="/Sprites">
-        <file>circle.png</file>
-        <file>Idle1.png</file>
-        <file>Idle2.png</file>
-        <file>Forward1_Test.png</file>
-        <file>Forward2_Test.png</file>
-        <file>Forward3_Test.png</file>
-        <file>Backwards1_Test.png</file>
-        <file>Backwards2_Test.png</file>
-        <file>Backwards3_Test.png</file>
-        <file>Ruler.png</file>
-        <file>floor.png</file>
-        <file>BG.png</file>
-        <file>Dummy.png</file>
-        <file>Base_hp.png</file>
-        <file>front_hp.png</file>
-        <file>front_mp.png</file>
+    <qresource prefix="/">
+        <file>Data/Sprites/Backwards1_Test.png</file>
+        <file>Data/Sprites/Backwards2_Test.png</file>
+        <file>Data/Sprites/Backwards3_Test.png</file>
+        <file>Data/Sprites/Base_hp.png</file>
+        <file>Data/Sprites/BG.png</file>
+        <file>Data/Sprites/circle.png</file>
+        <file>Data/Sprites/Dummy.png</file>
+        <file>Data/Sprites/floor.png</file>
+        <file>Data/Sprites/Forward1_Test.png</file>
+        <file>Data/Sprites/Forward2_Test.png</file>
+        <file>Data/Sprites/Forward3_Test.png</file>
+        <file>Data/Sprites/front_hp.png</file>
+        <file>Data/Sprites/front_mp.png</file>
+        <file>Data/Sprites/Idle1.png</file>
+        <file>Data/Sprites/Idle2.png</file>
+        <file>Data/Sprites/Ruler.png</file>
+        <file>Data/Sprites/Tim_NamePlate.png</file>
     </qresource>
 </RCC>

@@ -12,7 +12,7 @@
 class spriteframe{
 private:
     int duration = 0;
-    QString sprite = ":/Sprites/circle.png";
+    QString sprite = ":/Data/Sprites/circle.png";
     int next_index = 0;
 public:
 //##Declarations###############################################################
@@ -50,31 +50,26 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 //LIST OF ALL THE SPRITES IN THE GAME
 //#############################################################################
 
-#define IDLE1_IMG ":/Sprites/Idle1.png"
-#define IDLE2_IMG ":/Sprites/Idle2.png"
+#define IDLE1_IMG ":/Data/Sprites/Idle1.png"
+#define IDLE2_IMG ":/Data/Sprites/Idle2.png"
 
-#define FORWARD_IMG1 ":/Sprites/Forward1_Test.png"
-#define FORWARD_IMG2 ":/Sprites/Forward2_Test.png"
-#define FORWARD_IMG3 ":/Sprites/Forward3_Test.png"
+#define FORWARD_IMG1 ":/Data/Sprites/Forward1_Test.png"
+#define FORWARD_IMG2 ":/Data/Sprites/Forward2_Test.png"
+#define FORWARD_IMG3 ":/Data/Sprites/Forward3_Test.png"
 
-//#define FORWARD_IMG1 ":/Sprites/Test2.png"
-//#define FORWARD_IMG2 ":/Sprites/Test2.png"
-//#define FORWARD_IMG3 ":/Sprites/Test2.png"
+#define BACKWARDS_IMG1 ":/Data/Sprites/Backwards1_Test.png"
+#define BACKWARDS_IMG2 ":/Data/Sprites/Backwards2_Test.png"
+#define BACKWARDS_IMG3 ":/Data/Sprites/Backwards3_Test.png"
 
+#define RULER ":/Data/Sprites/Ruler.png"
+#define DUMMY ":/Data/Sprites/Dummy.png"
 
+#define BASEHEALTHBAR   ":/Data/Sprites/Base_hp.png"
+#define FRONTHEALTHBAR  ":/Data/Sprites/front_hp.png"
+#define FRONTSPECIALBAR ":/Data/Sprites/front_mp.png"
+#define TIMNAMEPLATE ":/Data/Sprites/Tim_NamePlate.png"
 
-#define BACKWARDS_IMG1 ":/Sprites/Backwards1_Test.png"
-#define BACKWARDS_IMG2 ":/Sprites/Backwards2_Test.png"
-#define BACKWARDS_IMG3 ":/Sprites/Backwards3_Test.png"
-
-#define RULER ":/Sprites/Ruler.png"
-#define DUMMY ":/Sprites/Dummy.png"
-
-#define BASEHEALTHBAR   ":/Sprites/Base_hp.png"
-#define FRONTHEALTHBAR  ":/Sprites/front_hp.png"
-#define FRONTSPECIALBAR ":/Sprites/front_mp.png"
-
-#define GRASSLAND ":/Sprites/BG.png"
-#define FLOOR ":/Sprites/floor.png"
+#define GRASSLAND ":/Data/Sprites/BG.png"
+#define FLOOR ":/Data/Sprites/floor.png"
 
 #endif // SPRITELIST_H

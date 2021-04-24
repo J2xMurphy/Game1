@@ -7,7 +7,8 @@
 #include <SpriteList.h>
 
 
-class render_object{
+class render_object
+{
     //Position Data
     int x=0,y=0;
     int spotX=0,spotY=1;
@@ -18,13 +19,13 @@ class render_object{
     qreal scale = 1;
     int dur_index= 0;
     int center_offset = 0;
-    QGraphicsPixmapItem * sprite = new QGraphicsPixmapItem;
     spriteframe cursprite;
 
 public:
+    QGraphicsPixmapItem * sprite;
     // Constructors --------------
     // ---------------------------
-    render_object(){}
+    render_object();
     render_object(int X_Position, int Y_Position,
                   QList<spriteframe> * Sprite_List, int Sprite_Index);
     render_object(int X_Position, int Y_Position,
@@ -32,7 +33,7 @@ public:
     render_object(int X_Position, int Y_Position,
                   qreal Scale,QList<spriteframe> * Sprite_List, int Sprite_Index);
     render_object(int X_Position, int Y_Position,
-                  qreal Scale,spriteframe Spriteframe);
+                  qreal Scale,spriteframe Spriteframe, qreal z=0);
 
     // Functions -----------------
     // ---------------------------
@@ -75,7 +76,8 @@ public:
 };
 
 // An extension of render object that responds to controls
-class controllable_object:public render_object{
+class controllable_object:public render_object
+{
 public:
     short health = 1000, curhealth = 700;
 
@@ -88,7 +90,8 @@ public:
 };
 
 // An extension of render object that is algorithmically driven
-class enemy_object:public render_object{
+class enemy_object:public render_object
+{
 public:
     short health = 1000;
     short curhealth = 700;
@@ -100,12 +103,38 @@ public:
 };
 
 // An extension of render object that deals with bar indicators
-class bar_object:public render_object{
+class bar_object:public render_object
+{
 public:
+    short curhealth = 500;
+    short maxhealth = 1000;
     bar_object();
     bar_object(int x, int y, spriteframe spl);
     bar_object(int x, int y, qreal z, spriteframe spl);
     void logic();
+};
+
+// An extension of render object that does not change
+class static_object:public render_object
+{
+public:
+    static_object();
+    static_object(int x, int y, spriteframe spl);
+    static_object(int x, int y, qreal scale ,qreal depth,spriteframe spl);
+};
+
+class text_object
+{
+    int x,y;
+    QGraphicsSimpleTextItem * text;
+public:
+    text_object(int X, int Y, QString Text);
+    void setX(int X);
+    void setY(int Y);
+    void setText(QString Text);
+    int getX();
+    int getY();
+    QString getText();
 };
 
 #endif // OBJECTS_H

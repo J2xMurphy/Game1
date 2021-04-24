@@ -37,37 +37,49 @@ void scene1(QList<render_object*>* objlist){
 }
 
 void health_bars(QList<render_object*>* objlist){
-    bar_object * basehealthbar1 = new bar_object(10,10,spr_create(BASEHEALTHBAR));
+    static_object * basehealthbar1 =
+            new static_object(10,UI_HEIGHT,spr_create(BASEHEALTHBAR));
     objlist->push_back(basehealthbar1);
 
-    bar_object * fronthealthbar1 = new bar_object(30,20,spr_create(FRONTHEALTHBAR));
+    bar_object * fronthealthbar1 =
+            new bar_object(30,UI_HEIGHT+7,spr_create(FRONTHEALTHBAR));
     objlist->push_back(fronthealthbar1);
 
-    bar_object * basespecialbar1 = new bar_object(12,170,0.60,spr_create(BASEHEALTHBAR));
+    static_object * basespecialbar1 =
+            new static_object(11,UI_HEIGHT+130,0.60,1.0,spr_create(BASEHEALTHBAR));
     objlist->push_back(basespecialbar1);
 
-    bar_object * frontspecialbar1 = new bar_object(
-                                basespecialbar1->getPosX()+20,
-                                basespecialbar1->getPosY()+7,
-                                basespecialbar1->getScale(),
-                                spr_create(FRONTSPECIALBAR));
+    bar_object * frontspecialbar1 =
+            new bar_object(basespecialbar1->getPosX()+20,
+                           basespecialbar1->getPosY()+7,
+                           basespecialbar1->getScale(),
+                           spr_create(FRONTSPECIALBAR));
     objlist->push_back(frontspecialbar1);
 
-    bar_object * basehealthbar2 = new bar_object(950,10,spr_create(BASEHEALTHBAR));
+    static_object * basehealthbar2 =
+            new static_object(950,UI_HEIGHT,spr_create(BASEHEALTHBAR));
     objlist->push_back(basehealthbar2);
 
-    bar_object * fronthealthbar2 = new bar_object(970,17,spr_create(FRONTHEALTHBAR));
+    bar_object * fronthealthbar2 =
+            new bar_object(970,UI_HEIGHT+7,spr_create(FRONTHEALTHBAR));
     objlist->push_back(fronthealthbar2);
 
-    bar_object * basespecialbar2 = new bar_object(2015,170,0.6,spr_create(BASEHEALTHBAR));
+    static_object * basespecialbar2 =
+            new static_object(1206,UI_HEIGHT+130,0.6,1.0,spr_create(BASEHEALTHBAR));
     objlist->push_back(basespecialbar2);
 
-    bar_object * frontspecialbar2 = new bar_object(
-                                basespecialbar2->getPosX()+20,
-                                basespecialbar2->getPosY()+7,
-                                basespecialbar2->getScale(),
-                                spr_create(FRONTSPECIALBAR));
+    bar_object * frontspecialbar2 =
+            new bar_object(basespecialbar2->getPosX()+20,
+                           basespecialbar2->getPosY()+7,
+                           basespecialbar2->getScale(),
+                           spr_create(FRONTSPECIALBAR));
     objlist->push_back(frontspecialbar2);
+
+    if (Player1 == "Tim"){
+        render_object * player_name_plate =
+                new render_object(0,0,1,spr_create(TIMNAMEPLATE),101.0);
+                objlist->push_back(player_name_plate);
+    }
 
 }
 

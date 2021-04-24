@@ -9,8 +9,8 @@ QList<render_object *> objlist;
 
 void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
 //    S_init();
-    scene1(&objlist);
     health_bars(&objlist);
+    scene1(&objlist);
 
     clist[0] = {k_up};// Set internal up to up arrow
     clist[1] = {k_down};// Set internal down to down arrow

@@ -1,9 +1,16 @@
 #include "objects.h"
 
+float ad = 0;
 //RENDER OBJECTS
 //#############################################################################
+render_object::render_object()
+{
+    sprite = new QGraphicsPixmapItem;
+}
+
 render_object::render_object(int x, int y, QList<spriteframe> * spl, int si)
 {
+    sprite = new QGraphicsPixmapItem;
     setXY(x,y);
     sprite_list = spl;
     sprite_index = si;
@@ -12,6 +19,7 @@ render_object::render_object(int x, int y, QList<spriteframe> * spl, int si)
 
 render_object::render_object(int x, int y, QList<spriteframe> * spl, int si, int z)
     {
+        sprite = new QGraphicsPixmapItem;
         setXY(x,y);
         sprite_list = spl;
         sprite_index = si;
@@ -19,23 +27,26 @@ render_object::render_object(int x, int y, QList<spriteframe> * spl, int si, int
         setZVal(z);
     }
 
-render_object::render_object(int x, int y, qreal z,QList<spriteframe> * spl, int si)
+render_object::render_object(int x, int y, qreal s,QList<spriteframe> * spl, int si)
     {
+        sprite = new QGraphicsPixmapItem;
+        setScale(s);
         setXY(x,y);
         sprite_list = spl;
         sprite_index = si;
         setSprite(sprite_list->at(sprite_index));
-        setScale(z);
     }
 
-render_object::render_object(int x, int y, qreal z,spriteframe sf)
+render_object::render_object(int x, int y, qreal s,spriteframe sf,qreal z)
     {
+        sprite = new QGraphicsPixmapItem;
+        setZVal(z);
+        setScale(s);
         setXY(x,y);
         sprite_list = NULL;
         sprite_index = 0;
         cursprite = sf;
         setSprite(sf);
-        setScale(z);
     }
 
 void render_object::init_Sprite(QList<spriteframe> * spl, int si)
@@ -51,21 +62,21 @@ void render_object::init_Sprite(QList<spriteframe> * spl, int si)
 
 void render_object::setX(int a)
 {                   // Set X position
-    x = a;
+    x = a/scale;
     sprite->setOffset(x,y);
 }
 
 void render_object::setY(int b)
 {                   // Set Y position
-    y = b;
+    y = b/scale;
     sprite->setOffset(x,y);
 }
 
 void render_object::setXY(int a, int b)
 {
     // Set X and Y position
-     x=a;
-     y=b;
+     setX(a);
+     setY(b);
      sprite->setOffset(x,y);
 }
 
@@ -132,12 +143,12 @@ void render_object::setSprite(spriteframe newsprite)
 
 int render_object::getPosX()
 {
-    return x;
+    return x*scale;
 }
 
 int render_object::getPosY()
 {
-    return y;
+    return y*scale;
 }
 
 int render_object::getSpotX()
@@ -205,6 +216,7 @@ void render_object::logic()
 controllable_object::
 controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,qreal scale,int c_of)
 {
+    sprite = new QGraphicsPixmapItem;
     initSprite_List(spr_list,spr_index);
     setCenterOffset(c_of);
      setScale(scale);
@@ -241,6 +253,7 @@ enemy_object::
 enemy_object(QList<spriteframe> * spr_list,int spr_index,
              int x, int y,qreal scale,int cof)
 {
+    sprite = new QGraphicsPixmapItem;
     initSprite_List(spr_list,spr_index);
     setCenterOffset(cof);
     setScale(scale);
@@ -254,26 +267,59 @@ void enemy_object::logic(){
 //BAR OBJECTS
 //#############################################################################
 
-bar_object::bar_object(){}
+bar_object::bar_object()
+{
+    sprite = new QGraphicsPixmapItem;
+}
 
 bar_object::bar_object(int x, int y, spriteframe spl)
 {
+    sprite = new QGraphicsPixmapItem;
+    setZVal(100);
     setXY(x,y);
     setSprite(spl);
 }
 
 bar_object::bar_object(int x, int y, qreal z, spriteframe spl)
 {
-    setXY(x,y);
+    sprite = new QGraphicsPixmapItem;
     setScale(z);
+    setZVal(100);
+    setXY(x,y);
     setSprite(spl);
 }
 
 void bar_object::logic()
+
 {
     QPixmap temp = getSpriteFrame().getSprite();
-    int a = temp.width()*.99;
-    std::cout << a << std::endl;
-    QPixmap newsprite = temp.copy(0,0,0,0);
+    float health_percent = curhealth;
+    health_percent /= maxhealth;
+    QPixmap newsprite = temp.copy(0,0,temp.width()*health_percent,temp.height());
     setSpriteSingle(newsprite);
+}
+
+//STATIC OBJECTS
+//#############################################################################
+
+static_object::static_object()
+{
+    sprite = new QGraphicsPixmapItem;
+}
+
+static_object::static_object(int x, int y, spriteframe spl)
+{
+    sprite = new QGraphicsPixmapItem;
+    setZVal(100);
+    setXY(x,y);
+    setSprite(spl);
+}
+
+static_object::static_object(int x, int y, qreal z,qreal depth, spriteframe spl)
+{
+    sprite = new QGraphicsPixmapItem;
+    setScale(z);
+    setZVal(depth);
+    setXY(x,y);
+    setSprite(spl);
 }
