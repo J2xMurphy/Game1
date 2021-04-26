@@ -83,6 +83,21 @@ void health_bars(QList<render_object*>* objlist){
 
 }
 
+void floor_targets(QList<render_object*>* objlist)
+{
+    for (int a = 0; a < 3; a++)
+    {
+        for (int b = 0; b < 5; b++)
+        {
+            static_object * target =
+                    new static_object(map_slot[a][b][0],map_slot[a][b][1],
+                    1,101,spr_create(TARGET));
+            target->setCenterOffset(50,50);
+            objlist->append(target);
+        }
+    }
+}
+
 void sprite_appender(QList<spriteframe> * enlist,QList<spriteframe> sfl){
     for (spriteframe sf:(sfl)){
         enlist->append(sf);

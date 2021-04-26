@@ -63,6 +63,7 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 
 #define RULER ":/Data/Sprites/Ruler.png"
 #define DUMMY ":/Data/Sprites/Dummy.png"
+#define TARGET ":/Data/Sprites/Target.png"
 
 #define BASEHEALTHBAR   ":/Data/Sprites/Base_hp.png"
 #define FRONTHEALTHBAR  ":/Data/Sprites/front_hp.png"

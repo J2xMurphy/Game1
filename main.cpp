@@ -4,9 +4,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);// Create Application
     QGraphicsScene * scene = new QGraphicsScene();// create a scene
-    QGraphicsView * view = new QGraphicsView(scene);// add a view
+    No_ScrollQGraphicsView * view = new No_ScrollQGraphicsView(scene);// add a view
 
-    view->setFixedSize(1366,768);// View Parameters
+    view->setInteractive(true);
+    view->setFixedSize(window_width,window_height);// View Parameters
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->verticalScrollBar();
@@ -34,3 +35,14 @@ void sceneRectInit(QGraphicsScene * scene){
     return;
 }
 
+
+No_ScrollQGraphicsView::No_ScrollQGraphicsView(QWidget * parent)
+: QGraphicsView(parent)
+{}
+
+No_ScrollQGraphicsView::No_ScrollQGraphicsView(QGraphicsScene * scene, QWidget * parent)
+: QGraphicsView(scene, parent)
+{}
+
+void No_ScrollQGraphicsView::wheelEvent(QWheelEvent * event)
+{}

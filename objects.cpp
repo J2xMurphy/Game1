@@ -1,6 +1,5 @@
 #include "objects.h"
 
-float ad = 0;
 //RENDER OBJECTS
 //#############################################################################
 render_object::render_object()
@@ -61,15 +60,17 @@ void render_object::init_Sprite(QList<spriteframe> * spl, int si)
 }
 
 void render_object::setX(int a)
-{                   // Set X position
-    x = a/scale;
-    sprite->setOffset(x,y);
+{
+    // Set X position
+    x = a;
+    sprite->setX(x-center_offset_x);
 }
 
 void render_object::setY(int b)
-{                   // Set Y position
-    y = b/scale;
-    sprite->setOffset(x,y);
+{
+    // Set Y position
+    y = b;
+    sprite->setY(y-center_offset_y);
 }
 
 void render_object::setXY(int a, int b)
@@ -77,32 +78,30 @@ void render_object::setXY(int a, int b)
     // Set X and Y position
      setX(a);
      setY(b);
-     sprite->setOffset(x,y);
 }
 
 void render_object::setSpotX(int a)
 {
     spotX = a;
-    x = (map_slot[spotY][spotX][0]/scale)-center_offset;
-    y = (map_slot[spotY][spotX][1]/scale)-(center_offset*scale);
-    sprite->setOffset(x,y);
+    x = (map_slot[spotY][spotX][0]-center_offset_x);
+    y = (map_slot[spotY][spotX][1]-center_offset_y);
+    sprite->setX(x);
+    sprite->setY(y);
 }
 
 void render_object::setSpotY(int b)
 {
     spotY = b;
-    x = (map_slot[spotY][spotX][0]/scale)-center_offset;
-    y = (map_slot[spotY][spotX][1]/scale)-(center_offset*scale);
-    sprite->setOffset(x,y);
+    x = (map_slot[spotY][spotX][0]-center_offset_x);
+    y = (map_slot[spotY][spotX][1]-center_offset_y);
+    sprite->setX(x);
+    sprite->setY(y);
 }
 
 void render_object::setSpotXY(int a, int b)
 {
-    spotX = a;
-    spotY = b;
-    x = (map_slot[spotY][spotX][0]/scale)-center_offset;
-    y = (map_slot[spotY][spotX][1]/scale)-(center_offset*scale);
-    sprite->setOffset(x,y);
+    setSpotX(a);
+    setSpotY(b);
 }
 
 void render_object::setZVal(int z)
@@ -117,14 +116,18 @@ void render_object::setScale(qreal newscale)
     sprite->setScale(scale);
 }
 
-void render_object::setCenterOffset(int a)
-{        // Sets the center
-    center_offset=a;
+void render_object::setCenterOffset(int a, int b)
+{
+    // Sets the center
+    center_offset_x=a;
+    center_offset_y=b;
+    setX(x);
+    setY(y);
 }
 
 void render_object::setSpriteSingle(QPixmap single)
 {
-    sprite->setPixmap(single);
+    static_cast<QGraphicsPixmapItem*>(sprite)->setPixmap(single);
 }
 
 void render_object::initSprite_List(QList<spriteframe> *sfl, int si)
@@ -138,17 +141,17 @@ void render_object::setSprite(spriteframe newsprite)
 {// Sets the sprite of player as newsprite
     dur_index = 0;
     cursprite = newsprite;
-    sprite->setPixmap(QPixmap(cursprite.getSprite()));
+    static_cast<QGraphicsPixmapItem*>(sprite)->setPixmap(QPixmap(cursprite.getSprite()));
 }
 
 int render_object::getPosX()
 {
-    return x*scale;
+    return x;
 }
 
 int render_object::getPosY()
 {
-    return y*scale;
+    return y;
 }
 
 int render_object::getSpotX()
@@ -171,12 +174,17 @@ qreal render_object::getScale()
     return scale;
 }
 
-int render_object::getCenterOffset()
+int render_object::getCenterOffsetX()
 {
-    return center_offset;
+    return center_offset_x;
 }
 
-QGraphicsPixmapItem*  render_object::getSprite()
+int render_object::getCenterOffsetY()
+{
+    return center_offset_y;
+}
+
+QGraphicsItem*  render_object::getSprite()
 {
     return sprite;
 }
@@ -199,7 +207,7 @@ void render_object::update_sprite()
           dur_index = 0;
           sprite_index=cursprite.get_Next_Index();
           cursprite = sprite_list[0].at(sprite_index);
-          sprite->setPixmap(QPixmap(cursprite.getSprite()));
+          static_cast<QGraphicsPixmapItem*>(sprite)->setPixmap(QPixmap(cursprite.getSprite()));
         }
     }
 
@@ -214,12 +222,12 @@ void render_object::logic()
 //#############################################################################
 
 controllable_object::
-controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,qreal scale,int c_of)
+controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,qreal scale,int c_ofx= 0, int c_ofy = 0)
 {
     sprite = new QGraphicsPixmapItem;
     initSprite_List(spr_list,spr_index);
-    setCenterOffset(c_of);
-     setScale(scale);
+    setCenterOffset(c_ofx,c_ofy);
+    setScale(scale);
     setSpotXY(x,y);
 }
 
@@ -251,11 +259,11 @@ void controllable_object::logic(){
 
 enemy_object::
 enemy_object(QList<spriteframe> * spr_list,int spr_index,
-             int x, int y,qreal scale,int cof)
+             int x, int y,qreal scale,int c_ofx = 0, int c_ofy = 0)
 {
     sprite = new QGraphicsPixmapItem;
     initSprite_List(spr_list,spr_index);
-    setCenterOffset(cof);
+    setCenterOffset(c_ofx,c_ofy);
     setScale(scale);
     setSpotXY(x,y);
 }
@@ -290,7 +298,6 @@ bar_object::bar_object(int x, int y, qreal z, spriteframe spl)
 }
 
 void bar_object::logic()
-
 {
     QPixmap temp = getSpriteFrame().getSprite();
     float health_percent = curhealth;

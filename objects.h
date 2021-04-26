@@ -12,17 +12,17 @@ class render_object
     //Position Data
     int x=0,y=0;
     int spotX=0,spotY=1;
+    int center_offset_x = 0,center_offset_y = 0;
 
     //Image Data
     QList<spriteframe> *  sprite_list;
     int sprite_index = 0;
     qreal scale = 1;
     int dur_index= 0;
-    int center_offset = 0;
     spriteframe cursprite;
 
 public:
-    QGraphicsPixmapItem * sprite;
+    QGraphicsItem * sprite;
     // Constructors --------------
     // ---------------------------
     render_object();
@@ -49,7 +49,7 @@ public:
     void setSpotY(int b);// Sets the spot Y on the battle grid
     void setSpotXY(int a, int b);//Sets both spotX and spotY
 
-    void setCenterOffset(int a);
+    void setCenterOffset(int a, int b);
 
     void setSpriteSingle(QPixmap single);// Do not use on animation
 
@@ -65,8 +65,9 @@ public:
     int getZVal();// Returns Depth
 
     qreal getScale();// Return Scale
-    int getCenterOffset();// Return sprite offset
-    QGraphicsPixmapItem*  getSprite() ;// Return image
+    int getCenterOffsetX();// Return sprite offset X
+    int getCenterOffsetY();// Return sprite offset Y
+    QGraphicsItem*  getSprite() ;// Return image
     spriteframe getSpriteat(int si);// Returns sprite frame at index
     spriteframe getSpriteFrame();// Returns current sprite frame
 
@@ -83,7 +84,7 @@ public:
 
     controllable_object(QList<spriteframe> * sprite_list,
                         int sprite_index,int x_location, int y_locatioin,
-                        qreal scale,int center_offset);
+                        qreal scale,int center_offset_x,int center_offset_y);
 
     void moveself(bool,bool,bool,bool);
     void logic();//TODO unique player logic
@@ -97,8 +98,8 @@ public:
     short curhealth = 700;
     int x_spot = 3; // the x tile of the enemy
     int y_spot = 1; // the y tile of the enemy
-    enemy_object(QList<spriteframe> * spr_list,int spr_index,
-                 int x, int y,qreal scale,int cof);
+    enemy_object(QList<spriteframe> * spr_list,int spr_index,int x, int y,
+                 qreal scale,int center_offset_x,int center_offset_y);
     void logic();
 };
 

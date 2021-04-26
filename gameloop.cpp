@@ -11,6 +11,7 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
 //    S_init();
     health_bars(&objlist);
     scene1(&objlist);
+    floor_targets(&objlist);
 
     clist[0] = {k_up};// Set internal up to up arrow
     clist[1] = {k_down};// Set internal down to down arrow
@@ -35,12 +36,12 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     // Setting the character parameters, sprite dimensions and location
     QList<spriteframe> * playerspl = new QList<spriteframe>;// Sprite list for char
     Player_sprite_init(playerspl);// Populate sprite list
-    player = new controllable_object(playerspl,0,1,1,2.0,36);// Create a player character
+    player = new controllable_object(playerspl,0,1,1,2.0,72,144);// Create a player character
 
     // Creating a test dummy with paraeters
     QList<spriteframe> * dummyspl = new QList<spriteframe>;
     dummy_sprite_init(dummyspl);
-    enemy = new enemy_object(dummyspl,0,4,1,2.0,36);
+    enemy = new enemy_object(dummyspl,0,4,1,2.0,36,36);
 
     scene->addItem(player->getSprite());// Add player image to scene
     scene->addItem(enemy->getSprite());
