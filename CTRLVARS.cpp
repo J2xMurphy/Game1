@@ -22,6 +22,6 @@ int framerate = 60;// Set the game's desired framerate
 QTimer * frametime;
 int clist[4];
 
-int UI_HEIGHT = 60;
+int UI_HEIGHT = 0;
 
 QString Player1 = "Tim";

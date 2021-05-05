@@ -8,10 +8,12 @@ enemy_object * enemy;
 QList<render_object *> objlist;
 
 void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
-//    S_init();
     health_bars(&objlist);
     scene1(&objlist);
     floor_targets(&objlist);
+    skill_spheres(&objlist);
+
+    QList<render_object*> review = objlist;
 
     clist[0] = {k_up};// Set internal up to up arrow
     clist[1] = {k_down};// Set internal down to down arrow

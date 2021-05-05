@@ -184,7 +184,7 @@ int render_object::getCenterOffsetY()
     return center_offset_y;
 }
 
-QGraphicsItem*  render_object::getSprite()
+QGraphicsItem * render_object::getSprite()
 {
     return sprite;
 }
@@ -222,7 +222,8 @@ void render_object::logic()
 //#############################################################################
 
 controllable_object::
-controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,qreal scale,int c_ofx= 0, int c_ofy = 0)
+controllable_object(QList<spriteframe> * spr_list,int spr_index,int x,int y,
+                    qreal scale,int c_ofx= 0, int c_ofy = 0)
 {
     sprite = new QGraphicsPixmapItem;
     initSprite_List(spr_list,spr_index);
@@ -299,11 +300,11 @@ bar_object::bar_object(int x, int y, qreal z, spriteframe spl)
 
 void bar_object::logic()
 {
-    QPixmap temp = getSpriteFrame().getSprite();
-    float health_percent = curhealth;
-    health_percent /= maxhealth;
-    QPixmap newsprite = temp.copy(0,0,temp.width()*health_percent,temp.height());
-    setSpriteSingle(newsprite);
+//    QPixmap temp = getSpriteFrame().getSprite();
+//    float health_percent = curhealth;
+//    health_percent /= maxhealth;
+//    QPixmap newsprite = temp.copy(0,0,temp.width()*health_percent,temp.height());
+//    setSpriteSingle(newsprite);
 }
 
 //STATIC OBJECTS
@@ -329,4 +330,44 @@ static_object::static_object(int x, int y, qreal z,qreal depth, spriteframe spl)
     setZVal(depth);
     setXY(x,y);
     setSprite(spl);
+}
+
+//TEXT OBJECTS
+//#############################################################################
+// TIL::
+// Make sure to use pointers correctly in type casting
+// Sprite is a pointer, so be sure not to confuse it with a &QGraphicsTextItem
+text_object::text_object
+(int x, int y, qreal depth, QString text, QFont font)
+{
+    sprite = new QGraphicsTextItem;
+    static_cast<QGraphicsTextItem*>(sprite)->setFont(font);
+    setZVal(depth);
+    setX(x);
+    setY(y);
+    setText(text);
+}
+
+void text_object::setText(QString text)
+{
+    static_cast<QGraphicsTextItem*>(sprite)->setPlainText(text);
+}
+
+void text_object::setFont(QFont font)
+{
+    static_cast<QGraphicsTextItem*>(sprite)->setFont(font);
+}
+
+QString text_object::getText()
+{
+    return static_cast<QGraphicsTextItem*>(sprite)->toPlainText();
+}
+
+QFont text_object::getFont()
+{
+    return static_cast<QGraphicsTextItem>(sprite).font();
+}
+
+void text_object::logic()
+{
 }

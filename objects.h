@@ -5,7 +5,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <SpriteList.h>
-
+#include <QFont>
 
 class render_object
 {
@@ -124,18 +124,15 @@ public:
     static_object(int x, int y, qreal scale ,qreal depth,spriteframe spl);
 };
 
-class text_object
+class text_object: public render_object
 {
-    int x,y;
-    QGraphicsSimpleTextItem * text;
 public:
-    text_object(int X, int Y, QString Text);
-    void setX(int X);
-    void setY(int Y);
+    text_object(int X, int Y, qreal depth, QString Text, QFont Font = QFont("sans",40));
     void setText(QString Text);
-    int getX();
-    int getY();
+    void setFont(QFont Font);
     QString getText();
+    QFont getFont();
+    void logic();
 };
 
 #endif // OBJECTS_H

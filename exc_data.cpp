@@ -25,60 +25,43 @@ void dummy_sprite_init(QList<spriteframe> * sprlist){
 
 void scene1(QList<render_object*>* objlist){
     // Scene 1's Object list--------------------
-    render_object * bg_obj = new render_object(0,0,1,spr_create(GRASSLAND));
-    objlist->push_back(bg_obj);
+    objlist->push_back(new render_object(0,0,1,spr_create(GRASSLAND)));
 
-    render_object * floor_obj = new render_object(0,315,1,spr_create(FLOOR));
-    objlist->push_back(floor_obj);
+    objlist->push_back(new render_object(0,315,1,spr_create(FLOOR)));
 
-    render_object * ruler_obj = new render_object(0,0,2,spr_create(RULER));
-    objlist->push_back(ruler_obj);
-
+    objlist->push_back(new render_object(0,0,2,spr_create(RULER)));
 }
 
 void health_bars(QList<render_object*>* objlist){
-    static_object * basehealthbar1 =
-            new static_object(10,UI_HEIGHT,spr_create(BASEHEALTHBAR));
-    objlist->push_back(basehealthbar1);
+    objlist->push_back(new static_object
+                       (10,UI_HEIGHT+60,spr_create(BASEHEALTHBAR)));
 
-    bar_object * fronthealthbar1 =
-            new bar_object(30,UI_HEIGHT+7,spr_create(FRONTHEALTHBAR));
-    objlist->push_back(fronthealthbar1);
+    objlist->push_back(new bar_object
+                       (30,UI_HEIGHT+65,spr_create(FRONTHEALTHBAR)));
 
-    static_object * basespecialbar1 =
-            new static_object(11,UI_HEIGHT+130,0.60,1.0,spr_create(BASEHEALTHBAR));
-    objlist->push_back(basespecialbar1);
+    objlist->push_back(new static_object
+                       (12,UI_HEIGHT+130,0.6,1.0,spr_create(BASEHEALTHBAR)));
 
-    bar_object * frontspecialbar1 =
-            new bar_object(basespecialbar1->getPosX()+20,
-                           basespecialbar1->getPosY()+7,
-                           basespecialbar1->getScale(),
-                           spr_create(FRONTSPECIALBAR));
-    objlist->push_back(frontspecialbar1);
+    objlist->push_back(new bar_object
+                       (24,UI_HEIGHT+133,0.6,spr_create(FRONTSPECIALBAR)));
 
-    static_object * basehealthbar2 =
-            new static_object(950,UI_HEIGHT,spr_create(BASEHEALTHBAR));
-    objlist->push_back(basehealthbar2);
+    objlist->push_back(new static_object
+                       (950,UI_HEIGHT+60,spr_create(BASEHEALTHBAR)));
 
-    bar_object * fronthealthbar2 =
-            new bar_object(970,UI_HEIGHT+7,spr_create(FRONTHEALTHBAR));
-    objlist->push_back(fronthealthbar2);
+    objlist->push_back(new bar_object
+                       (970,UI_HEIGHT+65,spr_create(FRONTHEALTHBAR)));
 
-    static_object * basespecialbar2 =
-            new static_object(1206,UI_HEIGHT+130,0.6,1.0,spr_create(BASEHEALTHBAR));
-    objlist->push_back(basespecialbar2);
+    objlist->push_back(new static_object
+                       (1204,UI_HEIGHT+130,0.6,1.0,spr_create(BASEHEALTHBAR)));
 
-    bar_object * frontspecialbar2 =
-            new bar_object(basespecialbar2->getPosX()+20,
-                           basespecialbar2->getPosY()+7,
-                           basespecialbar2->getScale(),
-                           spr_create(FRONTSPECIALBAR));
-    objlist->push_back(frontspecialbar2);
+    objlist->push_back(new bar_object
+                       (1216,UI_HEIGHT+133,0.6,spr_create(FRONTSPECIALBAR)));
 
     if (Player1 == "Tim"){
-        render_object * player_name_plate =
-                new render_object(0,0,1,spr_create(TIMNAMEPLATE),101.0);
-                objlist->push_back(player_name_plate);
+                objlist->push_back(new render_object
+                                   (0,UI_HEIGHT,1,spr_create(TIMNAMEPLATE),101.0));
+                objlist->push_back(new text_object
+                                   (100,UI_HEIGHT,255,"Tim",QFont("times",40)));
     }
 
 }
@@ -92,6 +75,22 @@ void floor_targets(QList<render_object*>* objlist)
             static_object * target =
                     new static_object(map_slot[a][b][0],map_slot[a][b][1],
                     1,101,spr_create(TARGET));
+            target->setCenterOffset(50,50);
+            objlist->append(target);
+        }
+    }
+}
+
+void skill_spheres(QList<render_object*>* objlist)
+{
+
+    for (int a = 0; a < 4; a++)
+    {
+        for (int b = 0; b < 2; b++)
+        {
+            static_object * target = new static_object(
+                        (a*35)+100,(b*30)+230+UI_HEIGHT,
+                        1,102,spr_create(SKILLSPHERE));
             target->setCenterOffset(50,50);
             objlist->append(target);
         }

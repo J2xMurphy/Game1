@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->verticalScrollBar();
 
-
     sceneRectInit(scene);// Initialize screen space
     scene->setSceneRect(0,0,1600,900);
 

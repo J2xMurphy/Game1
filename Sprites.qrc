@@ -18,5 +18,6 @@
         <file>Data/Sprites/Ruler.png</file>
         <file>Data/Sprites/Tim_NamePlate.png</file>
         <file>Data/Sprites/Target.png</file>
+        <file>Data/Sprites/Skill_Sphere.png</file>
     </qresource>
 </RCC>

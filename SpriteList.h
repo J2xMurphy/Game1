@@ -61,16 +61,17 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 #define BACKWARDS_IMG2 ":/Data/Sprites/Backwards2_Test.png"
 #define BACKWARDS_IMG3 ":/Data/Sprites/Backwards3_Test.png"
 
-#define RULER ":/Data/Sprites/Ruler.png"
-#define DUMMY ":/Data/Sprites/Dummy.png"
+#define RULER  ":/Data/Sprites/Ruler.png"
+#define DUMMY  ":/Data/Sprites/Dummy.png"
 #define TARGET ":/Data/Sprites/Target.png"
 
 #define BASEHEALTHBAR   ":/Data/Sprites/Base_hp.png"
 #define FRONTHEALTHBAR  ":/Data/Sprites/front_hp.png"
 #define FRONTSPECIALBAR ":/Data/Sprites/front_mp.png"
-#define TIMNAMEPLATE ":/Data/Sprites/Tim_NamePlate.png"
+#define TIMNAMEPLATE    ":/Data/Sprites/Tim_NamePlate.png"
+#define SKILLSPHERE     ":/Data/Sprites/Skill_Sphere.png"
 
 #define GRASSLAND ":/Data/Sprites/BG.png"
-#define FLOOR ":/Data/Sprites/floor.png"
+#define FLOOR     ":/Data/Sprites/floor.png"
 
 #endif // SPRITELIST_H
