@@ -23,8 +23,7 @@ SOURCES += \
     keyHandler.cpp \
     main.cpp \
     mainwindow.cpp \
-    objects.cpp \
-    player.cpp
+    objects.cpp
 
 HEADERS += \
     CTRLVARS.h \
@@ -33,8 +32,7 @@ HEADERS += \
     keyHandler.h \
     main.h \
     mainwindow.h \
-    objects.h \
-    player.h
+    objects.h
 
 FORMS += \
     mainwindow.ui

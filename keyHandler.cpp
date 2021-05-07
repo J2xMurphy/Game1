@@ -47,11 +47,6 @@ void keyWatcher::showKey(){
 }
 
 void keyWatcher::keyApply(){
-//    std::cout << clist[0].held
-//              << clist[1].held
-//              << clist[2].held
-//              << clist[3].held
-//              << std::endl;
     emit UDLDHeld(
             clist[0].held,
             clist[1].held,
