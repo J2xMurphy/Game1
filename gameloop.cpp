@@ -10,8 +10,9 @@ QList<render_object *> objlist;
 void gameloop::initialize(QGraphicsScene * newscene,QApplication * a){
     health_bars(&objlist);
     scene1(&objlist);
-    floor_targets(&objlist);
+    if (debug) debug_layer(&objlist);
     skill_spheres(&objlist);
+    timer(&objlist);
 
     QList<render_object*> review = objlist;
 

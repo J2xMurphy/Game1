@@ -5,7 +5,8 @@
 #include <list>
 #include "QList"
 
-void Player_sprite_init(QList<spriteframe> * sprlist){
+void Player_sprite_init(QList<spriteframe> * sprlist)
+{
     sprite_appender(
       sprlist,
      {spr_create(10,IDLE1_IMG,1),     //0
@@ -19,20 +20,21 @@ void Player_sprite_init(QList<spriteframe> * sprlist){
       }); //8});
 }
 
-void dummy_sprite_init(QList<spriteframe> * sprlist){
+void dummy_sprite_init(QList<spriteframe> * sprlist)
+{
     sprite_appender(sprlist,{spr_create(0,DUMMY,0)});
 }
 
-void scene1(QList<render_object*>* objlist){
+void scene1(QList<render_object*>* objlist)
+{
     // Scene 1's Object list--------------------
     objlist->push_back(new render_object(0,0,1,spr_create(GRASSLAND)));
 
     objlist->push_back(new render_object(0,315,1,spr_create(FLOOR)));
-
-    objlist->push_back(new render_object(0,0,2,spr_create(RULER)));
 }
 
-void health_bars(QList<render_object*>* objlist){
+void health_bars(QList<render_object*>* objlist)
+{
     objlist->push_back(new static_object
                        (10,UI_HEIGHT+60,spr_create(BASEHEALTHBAR)));
 
@@ -66,7 +68,21 @@ void health_bars(QList<render_object*>* objlist){
 
 }
 
-void floor_targets(QList<render_object*>* objlist)
+void timer(QList<render_object*>* objlist)
+{
+    objlist->push_back(
+                new text_object(747,UI_HEIGHT+50,254,"300",QFont("times",50)));
+    for (int a = 0; a < rounds; a++)
+    {
+        static_object * target = new static_object(
+                    (a*10)+(803-(rounds*10/2)),UI_HEIGHT+130,
+                    1,102,spr_create(ROUNDTIMER));
+        objlist->append(target);
+    }
+
+}
+
+void debug_layer(QList<render_object*>* objlist)
 {
     for (int a = 0; a < 3; a++)
     {
@@ -79,6 +95,8 @@ void floor_targets(QList<render_object*>* objlist)
             objlist->append(target);
         }
     }
+    objlist->push_back(new render_object(0,0,2,spr_create(RULER)));
+    objlist->push_back(new static_object(0,0,2.0,254,spr_create(GRID1)));
 }
 
 void skill_spheres(QList<render_object*>* objlist)
@@ -97,18 +115,21 @@ void skill_spheres(QList<render_object*>* objlist)
     }
 }
 
-void sprite_appender(QList<spriteframe> * enlist,QList<spriteframe> sfl){
+void sprite_appender(QList<spriteframe> * enlist,QList<spriteframe> sfl)
+{
     for (spriteframe sf:(sfl)){
         enlist->append(sf);
     }
 };
 
-spriteframe spr_create(QString img){
+spriteframe spr_create(QString img)
+{
     spriteframe tmp(0,img,0);
     return tmp;
 };
 
-spriteframe spr_create(int dur,QString img,int next){
+spriteframe spr_create(int dur,QString img,int next)
+{
     spriteframe tmp(dur,img,next);
     return tmp;
 };

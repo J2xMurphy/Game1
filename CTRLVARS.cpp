@@ -5,6 +5,7 @@ int window_height = 895;
 int viewport_x = 0;
 int viewport_y = 0;
 
+bool debug = 0;
 
 short map_slot[3][5][2] =
 {
@@ -23,5 +24,6 @@ QTimer * frametime;
 int clist[4];
 
 int UI_HEIGHT = 0;
+short rounds = 7;
 
 QString Player1 = "Tim";

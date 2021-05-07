@@ -50,6 +50,7 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 //LIST OF ALL THE SPRITES IN THE GAME
 //#############################################################################
 
+//TIM SPRITE
 #define IDLE1_IMG ":/Data/Sprites/Idle1.png"
 #define IDLE2_IMG ":/Data/Sprites/Idle2.png"
 
@@ -61,17 +62,22 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 #define BACKWARDS_IMG2 ":/Data/Sprites/Backwards2_Test.png"
 #define BACKWARDS_IMG3 ":/Data/Sprites/Backwards3_Test.png"
 
-#define RULER  ":/Data/Sprites/Ruler.png"
-#define DUMMY  ":/Data/Sprites/Dummy.png"
-#define TARGET ":/Data/Sprites/Target.png"
-
+//UI SPRITE
 #define BASEHEALTHBAR   ":/Data/Sprites/Base_hp.png"
 #define FRONTHEALTHBAR  ":/Data/Sprites/front_hp.png"
 #define FRONTSPECIALBAR ":/Data/Sprites/front_mp.png"
 #define TIMNAMEPLATE    ":/Data/Sprites/Tim_NamePlate.png"
 #define SKILLSPHERE     ":/Data/Sprites/Skill_Sphere.png"
+#define ROUNDTIMER      ":/Data/Sprites/Round_Timer.png"
 
+//EX SPRITE
 #define GRASSLAND ":/Data/Sprites/BG.png"
 #define FLOOR     ":/Data/Sprites/floor.png"
+
+//DEBUG LAYER
+#define RULER  ":/Data/Sprites/Ruler.png"
+#define GRID1 ":/Data/Sprites/Grid-1.png"
+#define DUMMY  ":/Data/Sprites/Dummy.png"
+#define TARGET ":/Data/Sprites/Target.png"
 
 #endif // SPRITELIST_H

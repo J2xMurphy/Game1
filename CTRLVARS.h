@@ -10,6 +10,8 @@ extern int window_height;
 extern int viewport_x;
 extern int viewport_y;
 
+extern bool debug;
+
 extern short map_slot[3][5][2];
 
 extern int k_up;
@@ -22,6 +24,7 @@ extern QTimer * frametime;
 extern int clist[4];
 
 extern int UI_HEIGHT;
+extern short rounds;
 
 extern QString Player1;
 
