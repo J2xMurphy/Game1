@@ -1,4 +1,27 @@
 #include "objects.h"
+//RENDER ITEM
+//#############################################################################
+render_item::render_item(){
+    x = new int;
+    y = new int;
+    sprite = new QGraphicsPixmapItem;
+    sprite->setPixmap(QString(TARGET));
+}
+
+render_item::render_item(sprite_dump parent){
+    x = new int(100);
+    y = new int(100);
+    sprite = new QGraphicsPixmapItem;
+    std::cout << *x << ", " << *y << "/!/" << x << ", " << y << std::endl;
+    sprite->setOffset(*x,*y);
+    sprite->setPixmap(QString(TIMNAMEPLATE));
+
+}
+
+QGraphicsPixmapItem * render_item::getSprite()
+{
+    return sprite;
+}
 
 //RENDER OBJECTS
 //#############################################################################
@@ -169,6 +192,11 @@ int render_object::getZVal()
     return sprite->zValue();
 }
 
+sprite_dump render_object::getGenes()
+{
+    return {&x,&y};
+}
+
 qreal render_object::getScale()
 {
     return scale;
@@ -267,9 +295,18 @@ enemy_object(QList<spriteframe> * spr_list,int spr_index,
     setCenterOffset(c_ofx,c_ofy);
     setScale(scale);
     setSpotXY(x,y);
+    std::cout << x << ", " << y << "//" << &x << ", " << &y << std::endl;
+    render_item ri(getGenes());
 }
 
-void enemy_object::logic(){
+
+QGraphicsItem * enemy_object::getTest()
+{
+    return ri.getSprite();
+}
+
+void enemy_object::logic()
+{
     return;
 }
 
@@ -371,3 +408,4 @@ QFont text_object::getFont()
 void text_object::logic()
 {
 }
+

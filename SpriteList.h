@@ -15,6 +15,11 @@ struct sprite_link{
     sprite_map * next;
 };
 
+struct sprite_dump{
+    int * x;
+    int * y;
+};
+
 //Spriteframe is essentailly a linked list that has data of:
 //  [1] when to swap with next image/link
 //  [2] the image that is to be displayed currently

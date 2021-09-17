@@ -88,6 +88,7 @@ void gameloop::init_enemy()
     dummy_sprite_init(dummyspl);
     enemy = new enemy_object(dummyspl,0,4,1,2.0,36,36);
     scene->addItem(enemy->getSprite());
+    scene->addItem(enemy->getTest());
 }
 
 void gameloop::init_logic()

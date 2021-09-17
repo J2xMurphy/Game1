@@ -7,6 +7,7 @@
 #include <SpriteList.h>
 #include <QFont>
 
+// The base class of onscreen objects
 class render_object
 {
     //Position Data
@@ -63,6 +64,7 @@ public:
     int getSpotX();//Return X spot
     int getSpotY();// Return Y spot
     int getZVal();// Returns Depth
+    sprite_dump getGenes();//Returns Pointers for children
 
     qreal getScale();// Return Scale
     int getCenterOffsetX();// Return sprite offset X
@@ -74,6 +76,17 @@ public:
     void update_sprite();
 
     virtual void logic();
+};
+
+// A sub-class to be used in render objects
+class render_item {
+    int * x;
+    int * y;
+    QGraphicsPixmapItem * sprite;
+public:
+    render_item();
+    render_item(sprite_dump);
+    QGraphicsPixmapItem * getSprite();
 };
 
 // An extension of render object that responds to controls
@@ -94,6 +107,7 @@ public:
 class enemy_object:public render_object
 {
 public:
+    render_item ri;
     short health = 1000;
     short curhealth = 700;
     int x_spot = 3; // the x tile of the enemy
@@ -101,6 +115,7 @@ public:
     enemy_object(QList<spriteframe> * spr_list,int spr_index,int x, int y,
                  qreal scale,int center_offset_x,int center_offset_y);
     void logic();
+    QGraphicsItem * getTest();
 };
 
 // An extension of render object that deals with bar indicators
