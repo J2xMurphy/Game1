@@ -68,8 +68,18 @@ void gameloop::init_objects()
 
     // add all of the pulled render objects for the level to the scene
     for(int index = 0; index < objlist.size(); index++){
-        scene->addItem(objlist[index]->getSprite());
+        objlist[index]->push_to_scene(scene);
     }
+
+    group_object go;
+    render_item a,b;
+    a.setSprite(TIMNAMEPLATE);
+    a.setXY(250,250);
+    b.setSprite(SKILLSPHERE);
+    b.setXY(500,500);
+    go.add_Item(&a);
+    go.add_Item(&b);
+    go.push_to_scene(scene);
 }
 
 void gameloop::init_player()
@@ -78,7 +88,7 @@ void gameloop::init_player()
     QList<spriteframe> * playerspl = new QList<spriteframe>;// Sprite list for char
     Player_sprite_init(playerspl);// Populate sprite list
     player = new controllable_object(playerspl,0,1,1,2.0,72,144);// Create a player character
-    scene->addItem(player->getSprite());// Add player image to scene
+    player->push_to_scene(scene);
 }
 
 void gameloop::init_enemy()
@@ -87,8 +97,7 @@ void gameloop::init_enemy()
     QList<spriteframe> * dummyspl = new QList<spriteframe>;
     dummy_sprite_init(dummyspl);
     enemy = new enemy_object(dummyspl,0,4,1,2.0,36,36);
-    scene->addItem(enemy->getSprite());
-    scene->addItem(enemy->getTest());
+    enemy->push_to_scene(scene);
 }
 
 void gameloop::init_logic()

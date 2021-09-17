@@ -9,13 +9,32 @@ render_item::render_item(){
 }
 
 render_item::render_item(sprite_dump parent){
-    x = new int(100);
-    y = new int(100);
+//    x = new int(100);
+//    y = new int(100);
+
+    x = parent.x;
+    y = parent.y;
     sprite = new QGraphicsPixmapItem;
     std::cout << *x << ", " << *y << "/!/" << x << ", " << y << std::endl;
     sprite->setOffset(*x,*y);
     sprite->setPixmap(QString(TIMNAMEPLATE));
 
+}
+
+void render_item::setXY(int a, int b){
+    if (parent != NULL){
+        qDebug() << "Parent Exists: Cannot set X/Y.";
+    }
+    else{
+        *x = a;
+        *y = b;
+        sprite->setOffset(*x,*y);
+    }
+    sprite->setZValue(100);
+}
+
+void render_item::setSprite(QString path){
+    sprite->setPixmap(path);
 }
 
 QGraphicsPixmapItem * render_item::getSprite()
@@ -227,6 +246,10 @@ spriteframe render_object::getSpriteFrame()
     return cursprite;
 }
 
+void render_object::push_to_scene(QGraphicsScene* scene){
+    scene->addItem(getSprite());
+}
+
 void render_object::update_sprite()
 {
     if (cursprite.getDuration()!=0){
@@ -297,12 +320,6 @@ enemy_object(QList<spriteframe> * spr_list,int spr_index,
     setSpotXY(x,y);
     std::cout << x << ", " << y << "//" << &x << ", " << &y << std::endl;
     render_item ri(getGenes());
-}
-
-
-QGraphicsItem * enemy_object::getTest()
-{
-    return ri.getSprite();
 }
 
 void enemy_object::logic()
@@ -409,3 +426,19 @@ void text_object::logic()
 {
 }
 
+//GROUP OBJECTS
+//#############################################################################
+group_object::group_object(){
+
+}
+
+void group_object::add_Item(render_item * nItem){
+    R_items.push_back(nItem);
+}
+
+void group_object::push_to_scene(QGraphicsScene * scene){
+    for(int index = 0;index < R_items.size(); index++){
+        scene->addItem(R_items[index]->getSprite());
+    }
+    //scene->addItem();
+}

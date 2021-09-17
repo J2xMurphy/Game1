@@ -3,9 +3,11 @@
 
 #include "CTRLVARS.h"
 
+#include "QGraphicsScene"
 #include <QGraphicsPixmapItem>
 #include <SpriteList.h>
 #include <QFont>
+#include <QtDebug>
 
 // The base class of onscreen objects
 class render_object
@@ -73,6 +75,7 @@ public:
     spriteframe getSpriteat(int si);// Returns sprite frame at index
     spriteframe getSpriteFrame();// Returns current sprite frame
 
+    void push_to_scene(QGraphicsScene*);//Adds sprites to the scene
     void update_sprite();
 
     virtual void logic();
@@ -83,9 +86,13 @@ class render_item {
     int * x;
     int * y;
     QGraphicsPixmapItem * sprite;
+    render_object * parent = NULL;
 public:
     render_item();
     render_item(sprite_dump);
+    void setXY(int,int);
+    void setSprite(QString);
+
     QGraphicsPixmapItem * getSprite();
 };
 
@@ -107,7 +114,6 @@ public:
 class enemy_object:public render_object
 {
 public:
-    render_item ri;
     short health = 1000;
     short curhealth = 700;
     int x_spot = 3; // the x tile of the enemy
@@ -115,7 +121,6 @@ public:
     enemy_object(QList<spriteframe> * spr_list,int spr_index,int x, int y,
                  qreal scale,int center_offset_x,int center_offset_y);
     void logic();
-    QGraphicsItem * getTest();
 };
 
 // An extension of render object that deals with bar indicators
@@ -139,6 +144,7 @@ public:
     static_object(int x, int y, qreal scale ,qreal depth,spriteframe spl);
 };
 
+// An extension of render object that displays text
 class text_object: public render_object
 {
 public:
@@ -148,6 +154,17 @@ public:
     QString getText();
     QFont getFont();
     void logic();
+};
+
+// An extension of render object that has multiple sprites attatched
+class group_object: public render_object
+{
+    int items;
+    QList<render_item*> R_items;
+public:
+    group_object();
+    void add_Item(render_item*);
+    void push_to_scene(QGraphicsScene *);
 };
 
 #endif // OBJECTS_H
