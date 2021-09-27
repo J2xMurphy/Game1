@@ -85,5 +85,6 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 #define GRID1 ":/Data/Sprites/Grid-1.png"
 #define DUMMY  ":/Data/Sprites/Dummy.png"
 #define TARGET ":/Data/Sprites/Target.png"
+#define GRAB ":/Data/Sprites/Grab.png"
 
 #endif // SPRITELIST_H

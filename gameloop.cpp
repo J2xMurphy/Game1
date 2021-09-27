@@ -12,8 +12,10 @@ void gameloop::initialize(QGraphicsScene * newscene,QApplication * a)
     app = a;
     scene = newscene;// Import passed scene to local pointer
 
+    // If debug is set, objlist is trackable in GDB
     if (debug) QList<render_object*> review = objlist;
 
+    // Start all objects
     init_objects();
     init_input();
     init_player();
@@ -71,15 +73,23 @@ void gameloop::init_objects()
         objlist[index]->push_to_scene(scene);
     }
 
-    group_object go;
-    render_item a,b;
-    a.setSprite(TIMNAMEPLATE);
-    a.setXY(250,250);
-    b.setSprite(SKILLSPHERE);
-    b.setXY(500,500);
-    go.add_Item(&a);
-    go.add_Item(&b);
-    go.push_to_scene(scene);
+    group_object * go = new group_object;
+    render_item * a = new render_item;
+    render_item * b = new render_item;
+
+    objlist.push_back(static_cast<render_object*>(go));
+
+    a->setParent(go);
+    a->setSprite(GRAB);
+    a->setScale(3);
+    a->setXY(250,250);
+
+    b->setSprite(GRAB);
+    b->setScale(2);
+    b->setXY(500,500);
+    go->add_Item(a);
+    go->add_Item(b);
+    go->push_to_scene(scene);
 }
 
 void gameloop::init_player()
@@ -87,7 +97,7 @@ void gameloop::init_player()
     // Setting the character parameters, sprite dimensions and location
     QList<spriteframe> * playerspl = new QList<spriteframe>;// Sprite list for char
     Player_sprite_init(playerspl);// Populate sprite list
-    player = new controllable_object(playerspl,0,1,1,2.0,72,144);// Create a player character
+    player = new controllable_object(playerspl,0,1,1,2.0,36,72);// Create a player character
     player->push_to_scene(scene);
 }
 
@@ -96,7 +106,7 @@ void gameloop::init_enemy()
     // Creating a test dummy with paraeters
     QList<spriteframe> * dummyspl = new QList<spriteframe>;
     dummy_sprite_init(dummyspl);
-    enemy = new enemy_object(dummyspl,0,4,1,2.0,36,36);
+    enemy = new enemy_object(dummyspl,0,4,1,2,36,72);
     enemy->push_to_scene(scene);
 }
 
