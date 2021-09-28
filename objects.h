@@ -3,14 +3,16 @@
 
 #include "CTRLVARS.h"
 
+#include "QGraphicsScene"
 #include <QGraphicsPixmapItem>
 #include <SpriteList.h>
 #include <QFont>
+#include <QtDebug>
 
+// The base class of onscreen objects
 class render_object
 {
     //Position Data
-    int x=0,y=0;
     int spotX=0,spotY=1;
     int center_offset_x = 0,center_offset_y = 0;
 
@@ -22,6 +24,7 @@ class render_object
     spriteframe cursprite;
 
 public:
+    int x=0,y=0;
     QGraphicsItem * sprite;
     // Constructors --------------
     // ---------------------------
@@ -63,6 +66,7 @@ public:
     int getSpotX();//Return X spot
     int getSpotY();// Return Y spot
     int getZVal();// Returns Depth
+    sprite_dump getGenes();//Returns Pointers for children
 
     qreal getScale();// Return Scale
     int getCenterOffsetX();// Return sprite offset X
@@ -71,9 +75,30 @@ public:
     spriteframe getSpriteat(int si);// Returns sprite frame at index
     spriteframe getSpriteFrame();// Returns current sprite frame
 
+    void push_to_scene(QGraphicsScene*);//Adds sprites to the scene
     void update_sprite();
 
     virtual void logic();
+};
+
+// A sub-class to be used in render objects
+class render_item {
+    int x; // x variable, or offset if has parent.
+    int y; // y variable, of offset if has parent.
+    QGraphicsPixmapItem * sprite; // Should be spriteframe, but is the sprite.
+    render_object * parent = NULL;// Parent to take data from.
+
+    spriteframe * SPRITE;// Testing for spriteframe replacement.
+
+public:
+    render_item();// Base constructor
+    render_item(sprite_dump);// Constructor when parent exists.
+    void setParent(render_object *);
+    void setXY(int,int);// Changes sprite position. Parent = relative,!= absolute
+    void setScale(qreal);
+    void setSprite(QString);// Changes the sprite.
+    void logic(bool);// Runs logic if needed.
+    QGraphicsPixmapItem * getSprite();// Returns the current sprite.
 };
 
 // An extension of render object that responds to controls
@@ -96,8 +121,6 @@ class enemy_object:public render_object
 public:
     short health = 1000;
     short curhealth = 700;
-    int x_spot = 3; // the x tile of the enemy
-    int y_spot = 1; // the y tile of the enemy
     enemy_object(QList<spriteframe> * spr_list,int spr_index,int x, int y,
                  qreal scale,int center_offset_x,int center_offset_y);
     void logic();
@@ -124,6 +147,7 @@ public:
     static_object(int x, int y, qreal scale ,qreal depth,spriteframe spl);
 };
 
+// An extension of render object that displays text
 class text_object: public render_object
 {
 public:
@@ -133,6 +157,20 @@ public:
     QString getText();
     QFont getFont();
     void logic();
+};
+
+// An extension of render object that has multiple sprites attatched
+class group_object: public render_object
+{
+    int items;
+    QList<render_item*> R_items;
+    bool update_children;
+public:
+    group_object();// Base constructor
+    void setXY(int,int);
+    void add_Item(render_item*);// Adds a render item to the group
+    void push_to_scene(QGraphicsScene *);// Adds the entire item list to the scene
+    void logic();// Runs logic on all the render items
 };
 
 #endif // OBJECTS_H

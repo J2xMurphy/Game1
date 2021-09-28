@@ -5,6 +5,21 @@
 #include <iostream>
 #include <QGraphicsPixmapItem>
 
+struct sprite_map{
+    int duration;
+    QString img;
+};
+
+struct sprite_link{
+    sprite_map sprite;
+    sprite_map * next;
+};
+
+struct sprite_dump{
+    int * x;
+    int * y;
+};
+
 //Spriteframe is essentailly a linked list that has data of:
 //  [1] when to swap with next image/link
 //  [2] the image that is to be displayed currently
@@ -30,15 +45,6 @@ public:
     int get_Next_Index();
     QString getSprite();
     int getDuration();
-
-
-//#####DEPRECATED#####
-// Takes in sprite duration, sprite location, and next spriteframe
-//    spriteframe * next = NULL;
-//  spriteframe(int duration,QString img_path ,spriteframe * next_frame);
-//  void init(int duration,QString img_path,spriteframe * next_frame);
-//  void setNext(spriteframe* nxt);
-//  spriteframe* getNext();
 };
 
 spriteframe spr_create(QString);
@@ -79,5 +85,6 @@ void sprite_appender(QList<spriteframe>*,QList<spriteframe>);
 #define GRID1 ":/Data/Sprites/Grid-1.png"
 #define DUMMY  ":/Data/Sprites/Dummy.png"
 #define TARGET ":/Data/Sprites/Target.png"
+#define GRAB ":/Data/Sprites/Grab.png"
 
 #endif // SPRITELIST_H

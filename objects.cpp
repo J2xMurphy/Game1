@@ -1,4 +1,69 @@
 #include "objects.h"
+//RENDER ITEM
+//#############################################################################
+render_item::render_item(){
+    x = 0;
+    y = 0;
+    sprite = new QGraphicsPixmapItem;
+    sprite->setPixmap(QString(TARGET));
+}
+
+render_item::render_item(sprite_dump parent){
+//    x = new int(100);
+//    y = new int(100);
+
+
+    sprite = new QGraphicsPixmapItem;
+    sprite->setX(x);
+    sprite->setY(y);
+    sprite->setPixmap(QString(TIMNAMEPLATE));
+
+}
+
+void render_item::setXY(int a, int b){
+    x = a;
+    y = b;
+    if (parent != NULL){
+        sprite->setX(parent->getPosX()+x);
+        sprite->setY(parent->getPosY()+y);
+//        qDebug() << parent->x << parent->getPosY();
+    }
+    else{
+        sprite->setX(x);
+        sprite->setY(y);
+    }
+    sprite->setZValue(100);
+}
+
+void render_item::setParent(render_object * mom){
+    parent = mom;
+    setXY(0,0);
+}
+
+void render_item::setSprite(QString path){
+    sprite->setPixmap(path);
+}
+
+QGraphicsPixmapItem * render_item::getSprite()
+{
+    return sprite;
+}
+
+void render_item::setScale(qreal scale)
+{
+    sprite->setScale(scale);
+}
+
+void render_item::logic(bool parent_changed)
+{
+    if (parent_changed)
+    {
+        setXY(x,y);
+    }
+    else{
+        return;
+    }
+}
 
 //RENDER OBJECTS
 //#############################################################################
@@ -114,13 +179,17 @@ void render_object::setScale(qreal newscale)
     scale = newscale;
     //sprite->pixmap().scaled(QSize(scale,scale));
     sprite->setScale(scale);
+    center_offset_x = center_offset_x*scale;
+    center_offset_y = center_offset_y*scale;
+    setX(x);
+    setY(y);
 }
 
 void render_object::setCenterOffset(int a, int b)
 {
     // Sets the center
-    center_offset_x=a;
-    center_offset_y=b;
+    center_offset_x=a*scale;
+    center_offset_y=b*scale;
     setX(x);
     setY(y);
 }
@@ -169,6 +238,11 @@ int render_object::getZVal()
     return sprite->zValue();
 }
 
+sprite_dump render_object::getGenes()
+{
+    return {&x,&y};
+}
+
 qreal render_object::getScale()
 {
     return scale;
@@ -197,6 +271,10 @@ spriteframe render_object::getSpriteat(int si)
 spriteframe render_object::getSpriteFrame()
 {
     return cursprite;
+}
+
+void render_object::push_to_scene(QGraphicsScene* scene){
+    scene->addItem(getSprite());
 }
 
 void render_object::update_sprite()
@@ -269,7 +347,8 @@ enemy_object(QList<spriteframe> * spr_list,int spr_index,
     setSpotXY(x,y);
 }
 
-void enemy_object::logic(){
+void enemy_object::logic()
+{
     return;
 }
 
@@ -370,4 +449,40 @@ QFont text_object::getFont()
 
 void text_object::logic()
 {
+}
+
+//GROUP OBJECTS
+//#############################################################################
+group_object::group_object(){
+    items = 0;
+    x = 6;
+    y = 0;
+}
+
+void group_object::setXY(int a, int b)
+{
+    update_children = true;
+    x = a;
+    y = b;
+}
+
+void group_object::add_Item(render_item * nItem){
+    R_items.push_back(nItem);
+    items++;
+}
+
+void group_object::push_to_scene(QGraphicsScene * scene){
+    for(int index = 0;index < R_items.size(); index++){
+        scene->addItem(R_items[index]->getSprite());
+    }
+}
+
+void group_object::logic()
+{
+    setXY(x+1,y);
+    for(int index = 0;index < R_items.size(); index++){
+        R_items[index]->logic(update_children);
+    }
+    update_children = false;
+//    std::cout << x << std::endl;
 }

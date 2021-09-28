@@ -21,5 +21,6 @@
         <file>Data/Sprites/Skill_Sphere.png</file>
         <file>Data/Sprites/Grid-1.png</file>
         <file>Data/Sprites/Round_Timer.png</file>
+        <file>Data/Sprites/Grab.png</file>
     </qresource>
 </RCC>

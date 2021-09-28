@@ -5,7 +5,7 @@ int window_height = 895;
 int viewport_x = 0;
 int viewport_y = 0;
 
-bool debug = 0;
+bool debug = true;
 
 short map_slot[3][5][2] =
 {
